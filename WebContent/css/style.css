@@ -1,0 +1,140 @@
+/* ======= 全体背景と初期設定 ======= */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: white;
+    color: #333;
+}
+
+/* ======= ヘッダー ======= */
+.header {
+    background-color: #3498db;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ======= コンテナ全体のレイアウト ======= */
+.container {
+    display: flex;
+    background-color: white;
+    min-height: 100vh;
+    border-top: 3px solid #3498db;
+    border-bottom: 3px solid #3498db;
+}
+
+/* ======= サイドバー ======= */
+.sidebar {
+    width: 200px;
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 3px solid #3498db;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar li {
+    margin: 0;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    color: #3498db;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+    color: #3498db;
+}
+
+/* ======= メイン画面 ======= */
+.main {
+    flex: 1;
+    padding: 30px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.main h2 {
+    margin-bottom: 20px;
+}
+
+/* ======= フォーム枠（青枠で角丸） ======= */
+.form-box {
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ======= フォーム横並び ======= */
+.form-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+}
+
+/* ======= 各フォームアイテム ======= */
+.form-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 100px;
+}
+
+.form-item label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-item select,
+.form-item input,
+.form-item button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* ======= 検索ボタン ======= */
+.form-item button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-item button:hover {
+    background-color: #2980b9;
+}
+
+/* ======= 検索結果表示エリア ======= */
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
