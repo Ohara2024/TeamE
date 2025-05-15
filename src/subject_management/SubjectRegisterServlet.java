@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet("/registerSubject")
+@WebServlet("/subjectregisterservlet/registerSubject")
 public class SubjectRegisterServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // 文字化け防止（POSTでの日本語処理）
@@ -30,7 +31,13 @@ public class SubjectRegisterServlet extends HttpServlet {
 
         // DAOを使ってDBに登録
         SubjectDao dao = new SubjectDao();
-        boolean success = dao.insert(subject);
+        boolean success = false;
+		try {
+			success = dao.save(subject);
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
         if (success) {
             // 登録成功 → 完了画面へリダイレクト
