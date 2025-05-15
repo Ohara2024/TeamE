@@ -85,4 +85,9 @@ public class TestListStudentDao extends Dao {
 
 		return list;
 	}
+
+	public List<?> filter(Integer entYear, String classNum, String subjectCd, Object object) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 }

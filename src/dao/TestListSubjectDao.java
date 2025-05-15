@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
+import bean.Student;
 import bean.Subject;
 import bean.TestListSubject;
 
@@ -131,5 +132,10 @@ public class TestListSubjectDao extends Dao {
 		}
 
 		return list;
+	}
+
+	public List<?> filter(Integer entYear, String classNum, Object subject, Student student) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }
