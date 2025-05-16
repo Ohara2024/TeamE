@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.ClassNum;
 
-@WebServlet("/testreference/search")
-public class TestReferenceSearch extends HttpServlet {
+@WebServlet(urlPatterns = {"/testmanagement/list"})
+public class TestListAction extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TestReferenceSearch search = new TestReferenceSearch();
+        TestListAction search = new TestListAction();
 
-        List<Integer> entYears = search.get("entYear);
+        List<Integer> entYears = search.filter("entYear");
         List<ClassNum> classList = search.getClassList();
         List<Subject> subjectList = search.getSubjectList();
 
