@@ -3,7 +3,7 @@
 <jsp:include page="/main/header.jsp"></jsp:include>
 <jsp:include page="/main/side_menu.jsp"></jsp:include>
 <div class="main">
-    <p>データを更新する学生を選んでください</p><br>
+
     <form action="/sms/testmanagement/list" method="post">
         <select name="id">
             <c:forEach var="s" items="${student_list }">
