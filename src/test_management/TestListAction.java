@@ -21,9 +21,8 @@ public class TestListAction extends HttpServlet {
 
         try {
             StudentDao dao = new StudentDao();
-            Student teacher;
 			boolean isAttend = false;
-			List<Student> student_list = dao.filter(teacher.getSchool(), isAttend );
+			List<Student> student_list = dao.filter(getSchool(), isAttend );
 
             request.setAttribute("student_list", student_list);
             request.getRequestDispatcher("/test_management/test_list.jsp").forward(request, response);
