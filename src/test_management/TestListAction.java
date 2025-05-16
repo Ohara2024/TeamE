@@ -1,6 +1,8 @@
 package test_management;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,38 +10,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.ClassNum;
+import bean.Student;
+import dao.StudentDao;
 
 @WebServlet(urlPatterns = {"/testmanagement/list"})
 public class TestListAction extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TestListAction search = new TestListAction();
+    	PrintWriter out = response.getWriter();
 
-        List<Integer> entYears = search.filter("entYear");
-        List<ClassNum> classList = search.getClassList();
-        List<Subject> subjectList = search.getSubjectList();
+        try {
+            StudentDao dao = new StudentDao();
+            Student teacher;
+			boolean isAttend = false;
+			List<Student> student_list = dao.filter(teacher.getSchool(), isAttend );
 
-        request.setAttribute("entYears", entYears);
-        request.setAttribute("classList", classList);
-        request.setAttribute("subjectList", subjectList);
-
-        // Lấy tham số
-        String entYearParam = request.getParameter("entYear");
-        String classNumParam = request.getParameter("classNum");
-        String subjectCdParam = request.getParameter("subjectCd");
-        String studentNoParam = request.getParameter("studentNo");
-
-        Integer entYear = null;
-        if (entYearParam != null && !entYearParam.isEmpty()) {
-            entYear = Integer.parseInt(entYearParam);
+            request.setAttribute("student_list", student_list);
+            request.getRequestDispatcher("/test_management/test_list.jsp").forward(request, response);
+        } catch (Exception e) {
+        	request.getRequestDispatcher("/main/error.jsp").forward(request, response);
         }
-
-        if (entYearParam != null || classNumParam != null || subjectCdParam != null || studentNoParam != null) {
-            List<?> resultList = search.search(entYear, classNumParam, subjectCdParam, studentNoParam);
-            request.setAttribute("resultList", resultList);
-        }
-
-        request.getRequestDispatcher("/WEB-INF/views/test_search.jsp").forward(request, response);
     }
 }
