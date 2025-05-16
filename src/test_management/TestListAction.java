@@ -21,10 +21,11 @@ public class TestListAction extends HttpServlet {
 
         try {
             StudentDao dao = new StudentDao();
-			boolean isAttend = false;
-			List<Student> student_list = dao.filter(getSchool(), isAttend );
 
-            request.setAttribute("student_list", student_list);
+			int entYear = 0;
+			List<Student> student_ent = dao.filter(entYear);
+
+            request.setAttribute("student_ent", student_ent);
             request.getRequestDispatcher("/test_management/test_list.jsp").forward(request, response);
         } catch (Exception e) {
         	request.getRequestDispatcher("/main/error.jsp").forward(request, response);
