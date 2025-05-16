@@ -17,16 +17,18 @@
         <div class="sidebar">
             <h2>メニュー</h2>
             <ul>
-                <li><a href="#">学生一覧</a></li>
-                <li><a href="#">学生追加</a></li>
-                <li><a href="#">学生更新</a></li>
-                <li><a href="#">学生削除</a></li>
+                <li><a href="#">メニュー</a></li>
+                <li><a href="#">学生管理</a></li>
+                <li><a href="#">成績管理</a></li>
+                <li><a href="#">　成績登録</a></li>
+                <li><a href="#">　成績参照</a></li>
+                <li><a href="#">科目管理</a></li>
             </ul>
         </div>
 
         <!-- メイン -->
         <div class="main">
-            <h2>得点登録</h2>
+            <h2>成績管理</h2>
 
             <!-- 角丸枠でフォームを囲む -->
             <div class="form-box">
@@ -34,33 +36,25 @@
                     <div class="form-item">
                         <label for="admissionYear">入学年度</label>
                         <select id="admissionYear" name="admissionYear">
-                            <option value="2023">2023</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
+
                         </select>
                     </div>
 
                     <div class="form-item">
                         <label for="className">クラス</label>
                         <select id="className" name="className">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
                         </select>
                     </div>
 
                     <div class="form-item">
                         <label for="subject">科目</label>
                         <select id="subject" name="subject">
-                            <option value="数学">数学</option>
-                            <option value="英語">英語</option>
                         </select>
                     </div>
 
                     <div class="form-item">
                         <label for="examCount">回数</label>
                         <select id="examCount" name="examCount">
-                            <option value="1">第1回</option>
-                            <option value="2">第2回</option>
                         </select>
                     </div>
 

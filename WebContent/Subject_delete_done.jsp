@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>科目削除完了</title>
 </head>
 <body>
-
+    <h1>科目削除完了</h1>
+    <p>指定した科目は正常に削除されました。</p>
+    <p><a href="subject_list.jsp">科目一覧へ戻る</a></p>
 </body>
 </html>

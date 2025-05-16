@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.School;
+import bean.Teacher;
+
 @WebServlet("/TestRegistAction")
 public class TestRegistAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -16,33 +19,43 @@ public class TestRegistAction extends HttpServlet {
         super();
     }
 
-    // GETリクエストでアクセスされた場合（例：URL直接アクセスなど）
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // JSPにフォワードする（空画面または初期表示）
+        // フォワードで登録画面を表示（初期表示）
         request.getRequestDispatcher("test_regist.jsp").forward(request, response);
     }
 
-    // POSTリクエストでアクセスされた場合（フォーム送信時）
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // フォームから受け取ったパラメータ取得
-        String year = request.getParameter("admissionYear");
-        String className = request.getParameter("className");
-        String subject = request.getParameter("subject");
-        String examCount = request.getParameter("examCount");
 
-        // 画面に表示する用のメッセージをセット
-        String message = "検索条件： 入学年度=" + year +
-                         ", クラス=" + className +
-                         ", 科目=" + subject +
-                         ", 回数=" + examCount;
+        // 入力フォームから教員データ取得
+        String id = request.getParameter("teacherId");
+        String password = request.getParameter("password");
+        String name = request.getParameter("teacherName");
+        String schoolId = request.getParameter("schoolId");
 
+        // Teacherインスタンス生成
+        Teacher teacher = new Teacher();
+        teacher.setId(id);
+        teacher.setPassword(password);
+        teacher.setName(name);
+
+        School school = new School();
+        school.setCd(schoolId);
+        teacher.setSchool(school);
+
+        // 確認表示用メッセージ
+        String message = "入力された教員情報： ID = " + id +
+                         ", 名前 = " + name +
+                         ", 学校ID = " + schoolId;
+
+        // リクエストにセットしてJSPへ渡す
+        request.setAttribute("teacher", teacher);
         request.setAttribute("message", message);
 
-        // JSPへフォワード
+        // JSPにフォワード
         request.getRequestDispatcher("test_regist.jsp").forward(request, response);
     }
 }
