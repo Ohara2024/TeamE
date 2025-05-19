@@ -17,30 +17,27 @@ public class SubjectDeleteExecuteAction extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    // GETアクセス時は一覧画面へフォワード（またはリダイレクト）
+    // GETアクセス時：一覧画面へリダイレクト
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // ここでは一覧画面へフォワード
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/subject_list.jsp");
-        dispatcher.forward(request, response);
-
-        // もしリダイレクトしたいならコメントアウトを外す
-        // response.sendRedirect(request.getContextPath() + "/subject_list.jsp");
+        response.sendRedirect(request.getContextPath() + "/subject_list.jsp");
     }
 
-    // POSTで削除処理を実行
+    // POSTアクセス時：削除処理
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String subjectId = request.getParameter("subjectId");
+        request.setCharacterEncoding("UTF-8");  // 忘れずにエンコーディング設定
+
+        String cd = request.getParameter("cd"); // JSPとパラメータ名を合わせる
         boolean deleteResult = false;
 
         try {
             SubjectDao dao = new SubjectDao();
             Subject subject = new Subject();
-            subject.setCd(subjectId);
+            subject.setCd(cd);
 
             deleteResult = dao.delete(subject);
 

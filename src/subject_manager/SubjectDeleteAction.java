@@ -71,8 +71,9 @@ public class SubjectDeleteAction extends HttpServlet {
             SubjectDao dao = new SubjectDao();
             dao.delete(subject);
 
-            // 一覧画面にリダイレクト
-            response.sendRedirect("subject_list.jsp");
+            // 削除完了画面に遷移
+            RequestDispatcher dispatcher = request.getRequestDispatcher("subject_delete_done.jsp");
+            dispatcher.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
