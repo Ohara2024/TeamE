@@ -1,11 +1,12 @@
+<!-- test_list.jsp -->
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/main/header.jsp"></jsp:include>
-<jsp:include page="/main/side_menu.jsp"></jsp:include>
+<jsp:include page="/main/header.jsp" />
+<jsp:include page="/main/side_menu.jsp" />
 
 <div class="main">
 
-    <h2 style="background-color:#d8e6f7; padding: 10px 20px;">成績参照</h2>
+    <h2 style="background-color:#d8e6f7; padding: 10px 20px;">成績参照（科目別）</h2>
 
     <form action="TestSearchBySubject.action" method="post" style="margin-bottom: 15px;">
         <fieldset style="border: none; padding: 10px 0;">
@@ -39,20 +40,10 @@
         </fieldset>
     </form>
 
-    <form action="TestSearchByStudent.action" method="post">
-        <fieldset style="border: none; padding: 10px 0;">
-            <legend style="font-weight: bold; margin-bottom: 5px;">学生情報</legend>
-
-            <input type="text" name="studentNo" placeholder="学生番号を入力してください" style="width: 200px; padding: 5px;" />
-
-            <button type="submit" style="margin-left: 10px; padding: 5px 10px;">検索</button>
-        </fieldset>
-    </form>
-
     <p style="color: #33b5e5; font-size: 13px; margin-top: 10px;">
-        科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
+        科目情報を選択して検索ボタンをクリックしてください
     </p>
 
 </div>
 
-<jsp:include page="/main/footer.jsp"></jsp:include>
+<jsp:include page="/main/footer.jsp" />
