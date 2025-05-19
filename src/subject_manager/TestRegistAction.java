@@ -1,4 +1,4 @@
-package scoremanager;
+package subject_manager;
 
 import java.io.IOException;
 
