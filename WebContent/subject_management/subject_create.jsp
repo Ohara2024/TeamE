@@ -16,7 +16,7 @@
     <h2>科目登録</h2>
 
     <!-- 登録フォーム -->
-    <form action="${pageContext.request.contextPath}/registerSubject" method="post">
+    <form action="${pageContext.request.contextPath}/subjectmanagement/createexe" method="post">
 
         <!-- 2 & 3. 科目コード -->
         <div class="form-group">
@@ -44,7 +44,7 @@
     </form>
 
     <!-- 7. 戻るリンク -->
-    <a href="subject_list.jsp">戻る</a>
+<p><a href="${pageContext.request.contextPath}/subjectmanagement/list">戻る</a></p>
 
 </body>
 </html>

@@ -42,8 +42,8 @@
 
     <!-- 3 & 4. 戻るリンク / 科目一覧リンク -->
     <div class="links">
-        <a href="subject_register.jsp">科目登録画面に戻る</a>
-        <a href="subject_list.jsp">科目一覧へ</a>
+<p><a href="${pageContext.request.contextPath}/subjectmanagement/create">科目登録画面に戻る</a></p>
+<p><a href="${pageContext.request.contextPath}/subjectmanagement/list">科目一覧へ</a></p>
     </div>
 
 </body>
