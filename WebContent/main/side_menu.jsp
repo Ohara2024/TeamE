@@ -5,7 +5,6 @@
     background-color: rgba(0, 0, 0, 0.05);
     padding: 15px;
     font-family: "Yu Gothic", "游ゴシック", sans-serif;
-    min-height: 600px;
   }
 
   .side-menu ul {
