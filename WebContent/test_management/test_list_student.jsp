@@ -1,27 +1,21 @@
-<!-- test_list_student.jsp -->
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/main/header.jsp" />
-<jsp:include page="/main/side_menu.jsp" />
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:include page="/main/header.jsp"></jsp:include>
+<jsp:include page="/main/side_menu.jsp"></jsp:include>
 
-<div class="main">
+<form action="${pageContext.request.contextPath}/testmanagement/studentexe" method="post" style="margin-bottom: 15px;">
+    <fieldset style="border: none; padding: 10px 0;">
+        <legend style="font-weight: bold; margin-bottom: 5px;">学生情報</legend>
 
-    <h2 style="background-color:#d8e6f7; padding: 10px 20px;">成績参照（学生別）</h2>
+        <label for="studentNo" style="margin-right: 10px;">学生番号</label>
+        <input type="text" name="studentNo" id="studentNo" placeholder="学生番号を入力してください" style="width: 200px; padding: 5px;" />
 
-    <form action="TestSearchByStudent.action" method="post">
-        <fieldset style="border: none; padding: 10px 0;">
-            <legend style="font-weight: bold; margin-bottom: 5px;">学生情報</legend>
+        <button type="submit" style="margin-left: 10px; padding: 5px 15px;">検索</button>
+    </fieldset>
+</form>
 
-            <input type="text" name="studentNo" placeholder="学生番号を入力してください" style="width: 200px; padding: 5px;" />
+<p style="color: #007bff; margin-top: 10px;">
+    学生番号を入力して検索ボタンをクリックしてください。
+</p>
 
-            <button type="submit" style="margin-left: 10px; padding: 5px 10px;">検索</button>
-        </fieldset>
-    </form>
-
-    <p style="color: #33b5e5; font-size: 13px; margin-top: 10px;">
-        学生番号を入力して検索ボタンをクリックしてください
-    </p>
-
-</div>
-
-<jsp:include page="/main/footer.jsp" />
+<jsp:include page="/main/footer.jsp"></jsp:include>
+<%-- 一応使わない --%>

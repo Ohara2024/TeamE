@@ -2,6 +2,7 @@ package test_management;
 
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import dao.StudentDao;
 import dao.TestListStudentDao;
 import tool.Action;
 
+@WebServlet(urlPatterns = {"/testmanagement/studentexe"})
 public class TestListStudentExecuteAction extends Action {
 
     @Override
@@ -30,7 +32,7 @@ public class TestListStudentExecuteAction extends Action {
         // Kiểm tra input
         if (studentNo == null || studentNo.isEmpty()) {
             req.setAttribute("errorMessage", "学生番号を入力してください。");
-            req.getRequestDispatcher("/test_management/test_list_student.jsp").forward(req, res);
+            req.getRequestDispatcher("/test_management/test_list.jsp").forward(req, res);
             return;
         }
 
@@ -40,7 +42,7 @@ public class TestListStudentExecuteAction extends Action {
 
         if (student == null) {
             req.setAttribute("errorMessage", "該当の学生が存在しません。");
-            req.getRequestDispatcher("/test_management/test_list_student.jsp").forward(req, res);
+            req.getRequestDispatcher("/test_management/test_list.jsp").forward(req, res);
             return;
         }
 

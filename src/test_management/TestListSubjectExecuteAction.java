@@ -2,6 +2,7 @@ package test_management;
 
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import dao.TestListStudentDao;
 import dao.TestListSubjectDao;
 import tool.Action;
 
+@WebServlet(urlPatterns = {"/testmanagement/subjectexe"})
 public class TestListSubjectExecuteAction extends Action {
 
     @Override

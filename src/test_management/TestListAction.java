@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import dao.ClassNumDao;
 import dao.SubjectDao;
 import tool.Action;
 
+@WebServlet(urlPatterns = {"/testmanagement/list"})
 public class TestListAction extends Action {
 
 	@Override
@@ -51,7 +53,8 @@ public class TestListAction extends Action {
 		req.setAttribute("entYearSet", entYearSet);
 
 		//jspへのフォワード7
-		req.getRequestDispatcher("/test_management/test_list.jsp").forward(req , res);
+		req.getRequestDispatcher("/test_management/test_list.jsp").forward(req, res);
+
 	}
 
 }
