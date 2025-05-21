@@ -124,51 +124,41 @@
 
         <!-- 検索フォーム -->
         <div class="form-box">
-            <form action="TestRegistAction" method="post" class="form-row">
-                <div class="form-item">
-                    <label for="admissionYear">入学年度</label>
-                    <select id="admissionYear" name="admissionYear">
-                        <option value="">--選択--</option>
-                        <c:forEach var="year" items="${yearList}">
-                            <option value="${year}">${year}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+     <form action="TestRegistAction" method="post" class="form-row">
+    <div class="form-item">
+        <label for="admissionYear">入学年度</label>
+        <select id="admissionYear" name="admissionYear">
+            <option value="">--選択--</option>
+            <c:forEach var="year" items="${yearList}"></c:forEach>
+        </select>
+    </div>
+    <div class="form-item">
+        <label for="className">クラス</label>
+        <select id="className" name="className">
+            <c:forEach var="cls" items="${classList}">
+                <option value="${cls}">${cls}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-item">
+        <label for="subject">科目</label>
+        <select id="subject" name="subject">
+            <c:forEach var="subj" items="${subjectList}">
+                <option value="${subj.id}">${subj.name}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div class="form-item">
+        <label for="examCount">回数</label>
+        <select id="examCount" name="examCount">
+        </select>
+    </div>
+    <div class="form-item">
+        <label>&nbsp;</label>
+        <button type="submit">検索</button>
+    </div>
+</form>
 
-                <div class="form-item">
-                    <label for="className">クラス</label>
-                    <select id="className" name="className">
-                        <option value="">--選択--</option>
-                        <c:forEach var="cls" items="${classList}">
-                            <option value="${cls}">${cls}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-
-                <div class="form-item">
-                    <label for="subject">科目</label>
-                    <select id="subject" name="subject">
-                        <option value="">--選択--</option>
-                        <c:forEach var="subj" items="${subjectList}">
-                            <option value="${subj.id}">${subj.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-
-                <div class="form-item">
-                    <label for="examCount">回数</label>
-                    <select id="examCount" name="examCount">
-                        <option value="1">第1回</option>
-                        <option value="2">第2回</option>
-                        <option value="3">第3回</option>
-                    </select>
-                </div>
-
-                <div class="form-item">
-                    <label>&nbsp;</label>
-                    <button type="submit">検索</button>
-                </div>
-            </form>
         </div>
 
         <!-- 検索結果（学生一覧＋得点入力フォーム） -->

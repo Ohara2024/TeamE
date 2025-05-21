@@ -8,78 +8,58 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet("/SubjectDeleteAction")
+@WebServlet("/scoremanager/SubjectDeleteAction")
 public class SubjectDeleteAction extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    // GET: 削除確認画面に遷移
+    // GET または POST どちらでもOKですが、通常はGETで表示する想定
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // リクエストパラメータから科目コード取得
+        String cd = request.getParameter("cd");
+        if (cd == null || cd.isEmpty()) {
+            // パラメータなしなら科目一覧にリダイレクト
+            response.sendRedirect(request.getContextPath() + "/scoremanager/SubjectListAction");
+            return;
+        }
+
         try {
-            request.setCharacterEncoding("UTF-8");
-
-            // セッションから学校情報を取得
-            HttpSession session = request.getSession();
-            School school = (School) session.getAttribute("school");
-
-            // パラメータから科目コード取得
-            String cd = request.getParameter("cd");
-
-            // DAOで該当の科目情報を取得
             SubjectDao dao = new SubjectDao();
-            Subject subject = dao.get(cd, school);
 
-            // リクエストにsubjectをセットし、JSPへ
+            // 科目コードで科目を検索
+            Subject subject = dao.findByCd(cd);
+
+            if (subject == null) {
+                // 見つからなければエラーをセットして一覧に戻す
+                request.setAttribute("error", "該当の科目が見つかりません。");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_list.jsp");
+                dispatcher.forward(request, response);
+                return;
+            }
+
+            // 科目情報をリクエスト属性にセットして削除確認画面へフォワード
             request.setAttribute("subject", subject);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("subject_delete.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_delete.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "削除画面の表示中にエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("subject_list.jsp");
+            request.setAttribute("error", "科目情報の取得中にエラーが発生しました。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_list.jsp");
             dispatcher.forward(request, response);
         }
     }
 
-    // POST: 実際に削除を実行
+    // POSTアクセスが来た場合もGET処理に丸投げして対応可能
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            request.setCharacterEncoding("UTF-8");
-
-            // セッションから学校情報を取得
-            HttpSession session = request.getSession();
-            School school = (School) session.getAttribute("school");
-
-            // パラメータから科目コード取得
-            String cd = request.getParameter("cd");
-
-            // Subjectオブジェクトを構築
-            Subject subject = new Subject();
-            subject.setCd(cd);
-            subject.setSchool(school);
-
-            // DAOで削除実行
-            SubjectDao dao = new SubjectDao();
-            dao.delete(subject);
-
-            // 削除完了画面に遷移
-            RequestDispatcher dispatcher = request.getRequestDispatcher("subject_delete_done.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "削除処理中にエラーが発生しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("subject_delete.jsp");
-            dispatcher.forward(request, response);
-        }
+        doGet(request, response);
     }
 }

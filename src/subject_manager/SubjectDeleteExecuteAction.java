@@ -12,33 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet("/servlet/scoremanager.SubjectDeleteExecuteAction")
+@WebServlet("/scoremanager/SubjectDeleteExecuteAction")
 public class SubjectDeleteExecuteAction extends HttpServlet {
-
     private static final long serialVersionUID = 1L;
 
-    // GETアクセス時：一覧画面へリダイレクト
+    // GETは一覧へリダイレクト
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/subject_list.jsp");
+        response.sendRedirect(request.getContextPath() + "/scoremanager/SubjectListAction");
     }
 
-    // POSTアクセス時：削除処理
+    // POSTは削除処理
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");  // 忘れずにエンコーディング設定
-
-        String cd = request.getParameter("cd"); // JSPとパラメータ名を合わせる
+        request.setCharacterEncoding("UTF-8");
+        String cd = request.getParameter("cd");
         boolean deleteResult = false;
 
         try {
             SubjectDao dao = new SubjectDao();
             Subject subject = new Subject();
             subject.setCd(cd);
-
             deleteResult = dao.delete(subject);
 
         } catch (Exception e) {
@@ -47,11 +44,11 @@ public class SubjectDeleteExecuteAction extends HttpServlet {
         }
 
         if (deleteResult) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/subject_delete_done.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_delete_done.jsp");
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("errorMsg", "科目の削除に失敗しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/subject_list.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_list.jsp");
             dispatcher.forward(request, response);
         }
     }
