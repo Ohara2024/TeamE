@@ -4,106 +4,9 @@
     <meta charset="UTF-8">
     <title>成績管理</title>
     <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #004080;
-            color: white;
-            padding: 1em;
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-        }
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-        nav {
-            width: 200px;
-            background-color: #f0f0f0;
-            border-right: 1px solid #ccc;
-            padding: 1em;
-            box-sizing: border-box;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav li {
-            margin-bottom: 1em;
-        }
-        nav a {
-            color: #004080;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        main {
-            flex: 1;
-            padding: 2em;
-            box-sizing: border-box;
-            background-color: #fff;
-            overflow-y: auto;
-        }
-        h2 {
-            color: #004080;
-        }
-        .form-box {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 1.5em;
-            background-color: #f9f9f9;
-            margin-bottom: 2em;
-        }
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5em;
-        }
-        .form-item {
-            display: flex;
-            flex-direction: column;
-            min-width: 200px;
-        }
-        .form-item label {
-            margin-bottom: 0.5em;
-            font-weight: bold;
-        }
-        .form-item select, .form-item button {
-            padding: 0.5em;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        .result-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .result-table th, .result-table td {
-            border: 1px solid #ccc;
-            padding: 0.5em;
-            text-align: center;
-        }
-        .result-table th {
-            background-color: #eef;
-        }
-        .submit-button {
-            margin-top: 1em;
-            background-color: #004080;
-            color: white;
-            border: none;
-            padding: 0.5em 1em;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .submit-button:hover {
-            background-color: #003366;
-        }
+
+
+
     </style>
 </head>
 <body>
@@ -122,35 +25,66 @@
     <main>
         <h2>成績登録</h2>
 
-        <!-- 検索フォーム -->
         <div class="form-box">
-     <form action="TestRegistAction" method="post" class="form-row">
+<form action="TestRegistAction" method="post" class="form-row">
     <div class="form-item">
         <label for="admissionYear">入学年度</label>
         <select id="admissionYear" name="admissionYear">
             <option value="">--選択--</option>
-            <c:forEach var="year" items="${yearList}"></c:forEach>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <c:forEach var="year" items="${yearList}">
+            </c:forEach>
         </select>
     </div>
     <div class="form-item">
         <label for="className">クラス</label>
         <select id="className" name="className">
+            <option value="">--選択--</option>
+            <option value="101">101</option>
+            <option value="131">131</option>
+            <option value="201">201</option>
             <c:forEach var="cls" items="${classList}">
-                <option value="${cls}">${cls}</option>
             </c:forEach>
         </select>
     </div>
     <div class="form-item">
         <label for="subject">科目</label>
         <select id="subject" name="subject">
+            <option value="">--選択--</option>
+            <option value="数学">数学</option>
+            <option value="国語">国語</option>
+            <option value="理科">理科</option>
+            <option value="情報処理基礎知識Ⅰ">情報処理基礎知識Ⅰ</option>
+            <option value="英語コミニケーション概論">英語コミニケーション概論</option>
+            <option value="Javaフレームワーク">Javaフレームワーク</option>
+            <option value="Git">Git</option>
+            <option value="H2">H2</option>
+            <option value="ID管理術">ID管理術</option>
+            <option value="Javaシステム開発">Javaシステム開発</option>
+            <option value="AWS">AWS</option>
+            <option value="Bean">Bean</option>
+            <option value="C言語">C言語</option>
+            <option value="DB">DB</option>
+            <option value="エラー対処術">エラー対処術</option>
+            <option value="Flutter">Futter</option>
+            <option value="Go言語">Go言語</option>
+            <option value="ハードウェア">ハードウェア</option>
+            <option value="IT概論">IT概論</option>
+            <option value="Java基礎">Java基礎</option>
             <c:forEach var="subj" items="${subjectList}">
-                <option value="${subj.id}">${subj.name}</option>
             </c:forEach>
         </select>
     </div>
     <div class="form-item">
         <label for="examCount">回数</label>
         <select id="examCount" name="examCount">
+            <option value="">--選択--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <c:forEach var="i" begin="1" end="5">
+            </c:forEach>
         </select>
     </div>
     <div class="form-item">
@@ -159,9 +93,9 @@
     </div>
 </form>
 
+
         </div>
 
-        <!-- 検索結果（学生一覧＋得点入力フォーム） -->
         <c:if test="${not empty studentList}">
             <form action="TestRegistExecuteAction" method="post">
                 <table class="result-table">

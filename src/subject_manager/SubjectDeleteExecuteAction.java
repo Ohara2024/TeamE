@@ -16,11 +16,10 @@ import dao.SubjectDao;
 public class SubjectDeleteExecuteAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    // GETは一覧へリダイレクト
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/scoremanager/SubjectListAction");
+        response.sendRedirect(request.getContextPath() + "/scoremanager/subject_list.jsp");
     }
 
     // POSTは削除処理
