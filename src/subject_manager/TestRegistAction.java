@@ -12,8 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Student;
 import dao.StudentDao;
 
-@WebServlet("/TestRegistAction")
+@WebServlet("/subjectmanager/TestRegistAction")
+
 public class TestRegistAction extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 戻るボタンや直接アクセスで呼び出された場合の処理
+        request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +38,7 @@ public class TestRegistAction extends HttpServlet {
             subject == null || subject.isEmpty() ||
             examCount == null || examCount.isEmpty()) {
             request.setAttribute("error", "すべての項目を選択してください。");
-            request.getRequestDispatcher("/test_regist.jsp").forward(request, response);
+            request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
             return;
         }
 
@@ -38,7 +46,6 @@ public class TestRegistAction extends HttpServlet {
         List<Student> studentList = studentDao.findByConditions(admissionYear, className);
 
         request.setAttribute("studentList", studentList);
-
         request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
     }
 }

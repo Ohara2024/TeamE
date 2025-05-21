@@ -14,12 +14,12 @@
 <div class="container">
     <nav>
         <ul>
-            <li><a href="#">メニュー</a></li>
-            <li><a href="#">学生管理</a></li>
-            <li><a href="#">成績管理</a></li>
-            <li><a href="#">　成績登録</a></li>
-            <li><a href="#">　成績参照</a></li>
-            <li><a href="#">科目管理</a></li>
+            <li><a href="<%= request.getContextPath() %>">メニュー</a></li>
+            <li><a href="<%= request.getContextPath() %>">学生管理</a></li>
+            <li><a href="<%= request.getContextPath() %>">成績管理</a></li>
+            <li><a href="<%= request.getContextPath() %>/subjectmanager/TestRegistAction">　成績登録</a></li>
+            <li><a href="<%= request.getContextPath() %>">　成績参照</a></li>
+            <li><a href="<%= request.getContextPath() %>">科目管理</a></li>
         </ul>
     </nav>
 
