@@ -13,19 +13,19 @@ import bean.Student;
 import dao.StudentDao;
 
 @WebServlet("/subjectmanager/TestRegistAction")
-
 public class TestRegistAction extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 戻るボタンや直接アクセスで呼び出された場合の処理
+        // JSPパスを /subject_manager に統一
         request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         request.setCharacterEncoding("UTF-8");
 
         String admissionYear = request.getParameter("admissionYear");
@@ -37,6 +37,7 @@ public class TestRegistAction extends HttpServlet {
             className == null || className.isEmpty() ||
             subject == null || subject.isEmpty() ||
             examCount == null || examCount.isEmpty()) {
+
             request.setAttribute("error", "すべての項目を選択してください。");
             request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
             return;
