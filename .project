@@ -28,4 +28,26 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebContent/WEB-INF/lib/taglibs-standard-compat-1.2.5.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/TeamE/TeamE/WebContent/WEB-INF/lib/taglibs-standard-compat-1.2.5.jar</locationURI>
+		</link>
+		<link>
+			<name>WebContent/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/TeamE/TeamE/WebContent/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar</locationURI>
+		</link>
+		<link>
+			<name>WebContent/WEB-INF/lib/taglibs-standard-jstlel-1.2.5.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/TeamE/TeamE/WebContent/WEB-INF/lib/taglibs-standard-jstlel-1.2.5.jar</locationURI>
+		</link>
+		<link>
+			<name>WebContent/WEB-INF/lib/taglibs-standard-spec-1.2.5.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/Downloads/TeamE/TeamE/WebContent/WEB-INF/lib/taglibs-standard-spec-1.2.5.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
