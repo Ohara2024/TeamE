@@ -64,4 +64,4 @@ public class TestRegistAction extends HttpServlet {
             request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
         }
     }
-}
+} 
