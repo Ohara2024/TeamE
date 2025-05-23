@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/scoremanager/SubjectDeleteAction")
+@WebServlet("/subjectmanager/SubjectDeleteAction")
 public class SubjectDeleteAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class SubjectDeleteAction extends HttpServlet {
         request.setAttribute("cd", cd);
         request.setAttribute("name", name);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_delete.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/subjectmanager/subject_delete.jsp");
         dispatcher.forward(request, response);
     }
 

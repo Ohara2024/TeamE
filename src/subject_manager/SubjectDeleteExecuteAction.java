@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet("/scoremanager/SubjectDeleteExecuteAction")
+@WebServlet("/subjectmanager/SubjectDeleteExecuteAction")
 public class SubjectDeleteExecuteAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/scoremanager/subject_list.jsp");
+        response.sendRedirect(request.getContextPath() + "/subjectmanager/subject_list.jsp");
     }
 
     // POSTは削除処理
@@ -43,11 +43,11 @@ public class SubjectDeleteExecuteAction extends HttpServlet {
         }
 
         if (deleteResult) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_delete_done.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/subjectmanager/subject_delete_done.jsp");
             dispatcher.forward(request, response);
         } else {
             request.setAttribute("errorMsg", "科目の削除に失敗しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/scoremanager/subject_list.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/subjectmanager/subject_list.jsp");
             dispatcher.forward(request, response);
         }
     }

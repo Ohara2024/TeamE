@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.School;  // Schoolクラスがbeanパッケージにある想定
 import bean.Student;
 import dao.StudentDao;
 
@@ -18,7 +19,6 @@ public class TestRegistAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // JSPパスを /subject_manager に統一
         request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
     }
 
@@ -43,10 +43,25 @@ public class TestRegistAction extends HttpServlet {
             return;
         }
 
-        StudentDao studentDao = new StudentDao();
-        List<Student> studentList = studentDao.findByConditions(admissionYear, className);
+        try {
+            // Schoolオブジェクトの作成・設定は適宜調整してください
+            School school = new School();
+            // 例: classNameを学校名に使う場合（実際の仕様に合わせてください）
+            school.setName(className);
 
-        request.setAttribute("studentList", studentList);
-        request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
+            int entYear = Integer.parseInt(admissionYear);
+            boolean isAttend = true;  // ここは必要に応じて変える
+
+            StudentDao studentDao = new StudentDao();
+            List<Student> studentList = studentDao.filter(school, entYear, isAttend);
+
+            request.setAttribute("studentList", studentList);
+            request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "学生情報の取得に失敗しました。");
+            request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
+        }
     }
 }

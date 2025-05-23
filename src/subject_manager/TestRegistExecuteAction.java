@@ -31,32 +31,41 @@ public class TestRegistExecuteAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String studentId = request.getParameter("studentId");
         String subjectId = request.getParameter("subjectId");
-        String scoreStr = request.getParameter("score");
+        String examCount = request.getParameter("examCount"); // 必要なら利用
 
-        int score = 0;
-        try {
-            score = Integer.parseInt(scoreStr);
-        } catch (NumberFormatException e) {
-            score = -1;
-        }
-
-        boolean isSuccess = false;
+        boolean isSuccess = true;
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
+            conn.setAutoCommit(false);  // トランザクション開始
+
             String sql = "INSERT INTO test_scores (student_id, subject_id, score) VALUES (?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, studentId);
-                ps.setString(2, subjectId);
-                ps.setInt(3, score);
-                int result = ps.executeUpdate();
-                if (result > 0) {
-                    isSuccess = true;
+                for (String paramName : request.getParameterMap().keySet()) {
+                    if (paramName.startsWith("score_")) {
+                        String studentId = paramName.substring("score_".length());
+                        String scoreStr = request.getParameter(paramName);
+                        int score = 0;
+                        try {
+                            score = Integer.parseInt(scoreStr);
+                        } catch (NumberFormatException e) {
+                            score = -1; // 無効値として扱う
+                        }
+                        if (score >= 0) {
+                            ps.setString(1, studentId);
+                            ps.setString(2, subjectId);
+                            ps.setInt(3, score);
+                            ps.addBatch();
+                        }
+                    }
                 }
+                ps.executeBatch();
             }
+            conn.commit();
+
         } catch (SQLException e) {
             e.printStackTrace();
+            isSuccess = false;
         }
 
         if (isSuccess) {
@@ -65,6 +74,6 @@ public class TestRegistExecuteAction extends HttpServlet {
             request.setAttribute("message", "登録に失敗しました");
         }
 
-        request.getRequestDispatcher("/test_regist.jsp").forward(request, response);
+        request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
     }
 }

@@ -6,9 +6,107 @@
     <meta charset="UTF-8">
     <title>成績管理</title>
     <style>
-
-
-
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 1em;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        nav {
+            width: 200px;
+            background-color: #f0f0f0;
+            border-right: 1px solid #ccc;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav li {
+            margin-bottom: 1em;
+        }
+        nav a {
+            color: #004080;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            flex: 1;
+            padding: 2em;
+            box-sizing: border-box;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+        h2 {
+            color: #004080;
+        }
+        .form-box {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1.5em;
+            background-color: #f9f9f9;
+            margin-bottom: 2em;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em;
+        }
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+        .form-item label {
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        .form-item select, .form-item button {
+            padding: 0.5em;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #ccc;
+            padding: 0.5em;
+            text-align: center;
+        }
+        .result-table th {
+            background-color: #eef;
+        }
+        .submit-button {
+            margin-top: 1em;
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #003366;
+        }
     </style>
 </head>
 <body>
@@ -19,8 +117,8 @@
             <li><a href="<%= request.getContextPath() %>">メニュー</a></li>
             <li><a href="<%= request.getContextPath() %>">学生管理</a></li>
             <li><a href="<%= request.getContextPath() %>">成績管理</a></li>
-            <li><a href="<%= request.getContextPath() %>/subjectmanager/TestRegistAction">成績登録</a></li>
-            <li><a href="<%= request.getContextPath() %>/subjectmanager/TestListAction">成績参照</a></li>
+            <li><a href="<%= request.getContextPath() %>/subjectmanager/TestRegistAction">　成績登録</a></li>
+            <li><a href="<%= request.getContextPath() %>/subjectmanager/TestListAction">　成績参照</a></li>
             <li><a href="<%= request.getContextPath() %>">科目管理</a></li>
         </ul>
     </nav>
