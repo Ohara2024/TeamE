@@ -8,6 +8,6 @@
 <body>
     <h2>科目変更完了</h2>
     <p style="background-color: #c8e6c9; padding: 10px;">科目の変更が完了しました。</p>
-    <p><a href="${pageContext.request.contextPath}/subjectmanagement/list">科目一覧へ戻る</a></p>>
+    <p><a href="${pageContext.request.contextPath}/subjectmanagement/list.action">科目一覧へ戻る</a></p>>
 </body>
 </html>

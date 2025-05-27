@@ -1,3 +1,4 @@
+
 package menu;
 
 import java.io.IOException;
@@ -7,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bean.School;
+import dao.SchoolDao;
 
 @WebServlet(urlPatterns = {"/menu/menuaction"})
 public class MenuAction extends HttpServlet {
@@ -19,7 +23,17 @@ public class MenuAction extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/main/menu.jsp").forward(request, response);
+        try {
+            // 学校情報を取得してセッションにセット
+            SchoolDao dao = new SchoolDao();
+            School school = dao.get("oom"); // 学校コードはデータベースに合わせてください
+            request.getSession().setAttribute("school", school);
+
+            // メニューに進む
+            request.getRequestDispatcher("/main/menu.jsp").forward(request, response);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

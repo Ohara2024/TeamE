@@ -19,7 +19,7 @@
 </c:if>
 
 <c:if test="${not empty subject}">
-    <form action="${pageContext.request.contextPath}/subjectmanagement/updateexe" method="post">
+   <form action="${pageContext.request.contextPath}/subjectmanagement/updateexe.action" method="post">
         <div class="form-group">
             <label for="cd">科目コード</label><br>
             <input type="text" id="cd" name="cd" value="${subject.cd}" readonly>
@@ -34,7 +34,8 @@
     </form>
 </c:if>
 
-<p><a href="${pageContext.request.contextPath}/subjectmanagement/list">戻る</a></p>
+<p><a href="${pageContext.request.contextPath}/subjectmanagement/list.action">戻る</a></p>
+
 
 </body>
 </html>

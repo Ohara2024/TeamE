@@ -44,17 +44,18 @@
             <td>${subject.cd}</td>
             <td>${subject.name}</td>
             <td>
-                <a href="${pageContext.request.contextPath}/subject_update?cd=${subject.cd}" class="button">編集</a>
+<a href="${pageContext.request.contextPath}/subjectmanagement/update.action?cd=${subject.cd}" class="button">編集</a>
+
                 <form action="${pageContext.request.contextPath}/subject_delete" method="post" style="display:inline;">
                     <input type="hidden" name="cd" value="${subject.cd}">
-                    <input type="submit" value="削除" onclick="return confirm('本当に削除しますか？');">
+<a href="${pageContext.request.contextPath}/subjectmanagement/delete.action?cd=${subject.cd}" class="button">削除</a>
                 </form>
             </td>
         </tr>
     </c:forEach>
 </table>
 
-<p><a href="${pageContext.request.contextPath}/subjectmanagement/create">新規登録</a></p>
+<p><a href="${pageContext.request.contextPath}/subjectmanagement/create.action">新規登録</a></p>
 
 </body>
 </html>

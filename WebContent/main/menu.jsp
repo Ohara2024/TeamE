@@ -54,7 +54,7 @@
       <a href="/TeamE/testmanagement/list">成績参照</a>
     </div>
     <div class="box subject">
-      <a href="/TeamE/subjectmanagement/list">科目管理</a>
+      <a href="/TeamE/subjectmanagement/list.action">科目管理</a>
     </div>
   </div>
 </div>
