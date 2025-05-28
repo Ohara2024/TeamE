@@ -1,80 +1,93 @@
+<!-- 成績参照検索JSP -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<c:import url="/common/base.jsp" >
+	<c:param name="title">
+		得点管理システム
+	</c:param>
 
-<jsp:include page="/main/header.jsp" />
-<jsp:include page="/main/side_menu.jsp" />
+	<c:param name="scripts"></c:param>
 
-<h2>成績参照</h2>
+	<c:param name="content">
+		<section class="me=4">
+			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
 
-<!-- FORM 1: 科目情報での検索 -->
-<form method="post" action="/TeamE/testmanagement/subjectexe">
-    <fieldset style="border: none; padding: 10px 0; margin-bottom: 20px;">
-        <legend style="font-weight: bold; margin-bottom: 5px;">科目情報</legend>
+			<div class="border border-bottom mx-3 mb-2 px-3 py-2 align-items-center rounded" id="filter">
+				<form action="TestListSubjectExecute.action" method="get">
+					<div class="row">
+						<div class="col-2 mt-4" style="text-align:center">
+							<p>科目情報</p>
+						</div>
 
-        <label for="entranceYear" style="margin-right: 10px;">入学年度</label>
-        <select name="entranceYear" id="entranceYear" style="margin-right: 20px;">
-            <option value="">-------</option>
-            <c:forEach var="year" items="${entYearSet}">
-                <option value="${year}">${year}</option>
-            </c:forEach>
-        </select>
+						<div class="col-2">
+							<label class="form-label" for="subject-f1-select">入学年度</label>
+							<select class="form-select" id="subject-f1-select" name="f1">
+								<option value="0">--------</option>
+								<c:forEach var="year" items="${entYearSet }">
+									<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+									<option value="${year }" <c:if test="${year==f1 }">selected</c:if>>${year }</option>
+								</c:forEach>
+							</select>
+						</div>
 
-        <label for="classNum" style="margin-right: 10px;">クラス</label>
-        <select name="classNum" id="classNum" style="margin-right: 20px;">
-            <option value="">-------</option>
-            <c:if test="${empty cNumlist}">
-                <option value="" disabled>クラスがありません</option>
-            </c:if>
-            <c:forEach var="cNum" items="${cNumlist}">
-                <option value="${cNum}">${cNum}</option>
-            </c:forEach>
-        </select>
+						<div class="col-2">
+							<label class="form-label" for="student-f2-select">クラス</label>
+							<select class="form-select" id="student-f2-select" name="f2">
+								<option value="0">--------</option>
+								<c:forEach var="num" items="${cNumlist }">
+									<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
+									<option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option>
+								</c:forEach>
+							</select>
+						</div>
 
-        <label for="subject" style="margin-right: 10px;">科目</label>
-        <select name="subject" id="subject" style="margin-right: 20px;">
-            <option value="">-------</option>
-            <c:if test="${empty list}">
-                <option value="" disabled>科目がありません</option>
-            </c:if>
-            <c:forEach var="subj" items="${list}">
-                <option value="${subj.cd}">${subj.name}</option>
-            </c:forEach>
-        </select>
+						<div class="col-4">
+							<label class="form-label" for="student-f2-select">科目</label>
+							<select class="form-select" id="student-f2-select" name="f3">
+								<option value="0">--------</option>
+								<c:forEach var="subject" items="${list }">
+									<%-- 現在のsubject.cdと選択されていたf3が一致していた場合selectedを追記 --%>
+									<option value="${subject.cd }" <c:if test="${subject.cd==f3 }">selected</c:if>>${subject.name }</option>
+								</c:forEach>
+							</select>
+						</div>
 
-        <button type="submit" style="padding: 5px 15px;">検索</button>
-    </fieldset>
-</form>
+						<div class="col-2 mt-3 text-center">
+						<input type="hidden" name="f" value="sj">
+							<button class="btn btn-secondary" id="subject-button">検索</button>
+						</div>
+						<div class="mt-2 text-warning">${errors.get("1") }</div>
+					</div>
+				</form>
 
-<!-- FORM 2: 学生番号での検索 -->
-<form method="post" action="/TeamE/testmanagement/studentexe">
-    <fieldset style="border: none; padding: 10px 0;">
-        <legend style="font-weight: bold; margin-bottom: 5px;">学生情報</legend>
+				<div class="row border-bottom mx-0 mb-3 py-2 align-items-center"></div>
 
-        <label for="studentNo" style="margin-right: 10px;">学生番号</label>
-        <input type="text" name="studentNo" id="studentNo" placeholder="例: 2225001" style="width: 200px; padding: 5px;" required />
+				<form action="TestListStudentExecute.action" method="get">
+					<div class="row">
+						<div class="col-2 mt-3" style="text-align:center">
+							<p>学生情報</p>
+						</div>
 
-        <button type="submit" style="margin-left: 10px; padding: 5px 15px;">検索</button>
-    </fieldset>
-</form>
+						<div class="col-4">
+							<label class="form-label" for="student-f4-select">学生番号</label>
+							<input class="form-control" type="text" id="student-f4-select"
+							name="f4" value="${f4 }" required maxlength="10"
+							placeholder="学生番号を入力してください"/>
+						</div>
 
-<!-- データ一覧表示 -->
-<c:if test="${not empty cNumlist or not empty list}">
-    <h3>利用可能なデータ</h3>
-    <h4>クラス一覧</h4>
-    <ul>
-        <c:forEach var="cNum" items="${cNumlist}">
-            <li>${cNum}</li>
-        </c:forEach>
-    </ul>
-    <h4>科目一覧</h4>
-    <ul>
-        <c:forEach var="subj" items="${list}">
-            <li>${subj.name} (コード: ${subj.cd})</li>
-        </c:forEach>
-    </ul>
-</c:if>
-<c:if test="${empty cNumlist and empty list}">
-    <p style="color: red;">データベースにクラスまたは科目のデータがありません。管理者にご連絡ください。</p>
-</c:if>
+						<div class="col-2 mt-3 text-center">
+							<input type="hidden" name="f" value="st">
+							<button class="btn btn-secondary" id="student-button">検索</button>
+						</div>
+					</div>
+				</form>
+			</div>
 
-<jsp:include page="/main/footer.jsp" />
+			<p>
+				<font color="5accf2">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
+				</font>
+			</p>
+		</section>
+	</c:param>
+</c:import>
