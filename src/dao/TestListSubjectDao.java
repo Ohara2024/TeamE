@@ -13,123 +13,149 @@ import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
 
-	/**
-	 * baseSql:String 共通SQL文 プライベート
-	 */
-	private String baseSql = "SELECT ST.ent_year as st_ent_year, ST.no as st_no, ST.name as st_name, "
-			+ "ST.class_num as st_class_num, T.no as t_no, T.point as t_point "
-			+ "FROM student ST left outer join (test T inner join subject SJ on T.subject_cd=SJ.cd) "
-			+ "on ST.no=T.student_no ";
+    private String baseSql = "SELECT ST.ent_year as st_ent_year, ST.no as st_no, ST.name as st_name, "
+            + "ST.class_num as st_class_num, T.no as t_no, T.point as t_point "
+            + "FROM student ST left outer join (test T inner join subject SJ on T.subject_cd=SJ.cd) "
+            + "on ST.no=T.student_no ";
 
-	/**
-	 * postFilterメソッド フィルター後のリストへの格納処理 プライベート
-	 *
-	 * @param rSet:リザルトセット
-	 * @return 科目成績表示用のリスト:List<TestListSubject> 存在しない場合は0件のリスト
-	 * @throws Exception
-	 */
-	private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
-		List<TestListSubject> list = new ArrayList<>();
-		TestListSubject test = new TestListSubject();
+    private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
+        List<TestListSubject> list = new ArrayList<>();
+        TestListSubject test = new TestListSubject();
+        String currentStudentNo = null;
+        while (rSet.next()) {
+            String studentNo = rSet.getString("st_no");
+            if (currentStudentNo == null) {
+                currentStudentNo = studentNo;
+                test.setStudentNo(studentNo);
+                test.setEntYear(rSet.getInt("st_ent_year"));
+                test.setClassNum(rSet.getString("st_class_num"));
+                test.setStudentName(rSet.getString("st_name"));
+            } else if (!studentNo.equals(currentStudentNo)) {
+                list.add(test);
+                test = new TestListSubject();
+                currentStudentNo = studentNo;
+                test.setStudentNo(studentNo);
+                test.setEntYear(rSet.getInt("st_ent_year"));
+                test.setClassNum(rSet.getString("st_class_num"));
+                test.setStudentName(rSet.getString("st_name"));
+            }
+            int num = rSet.getInt("t_no");
+            int point = rSet.getInt("t_point");
+            test.putPoint(num, point);
+        }
+        if (currentStudentNo != null) {
+            list.add(test);
+        }
+        return list;
+    }
 
-		// 現在の学生番号
-		String currentStudentNo = null;
-		while (rSet.next()) {
-			// 学生番号を取得
-			String studentNo = rSet.getString("st_no");
+    public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) throws Exception {
+        if (subject == null || school == null) {
+            throw new IllegalArgumentException("科目または学校が指定されていません。");
+        }
 
-			if (currentStudentNo == null) {
-				// 最初のデータの場合
-				// 現在の学生番号に学生番号をセット
-				currentStudentNo = studentNo;
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        List<TestListSubject> list = new ArrayList<>();
+        ResultSet rSet = null;
 
-				// インスタンスに値をセット
-				test.setStudentNo(studentNo);
-				test.setEntYear(rSet.getInt("st_ent_year"));
-				test.setClassNum(rSet.getString("st_class_num"));
-				test.setStudentName(rSet.getString("st_name"));
-			} else if (!studentNo.equals(currentStudentNo)) {
-				// 学生が変わった場合
-				// リストに追加
-				list.add(test);
-				// インスタンスを初期化
-				test = new TestListSubject();
+        String condition = "and T.subject_cd=? "
+                + "where ST.ent_year=? and ST.class_num=? and ST.school_cd=? and ST.is_attend=true";
+        String order = " order by ST.no asc, T.no asc";
 
-				// 現在の学生番号に学生番号をセット
-				currentStudentNo = studentNo;
-				// インスタンスに値をセット
-				test.setStudentNo(studentNo);
-				test.setEntYear(rSet.getInt("st_ent_year"));
-				test.setClassNum(rSet.getString("st_class_num"));
-				test.setStudentName(rSet.getString("st_name"));
-			}
+        try {
+            statement = connection.prepareStatement(baseSql + condition + order);
+            statement.setString(1, subject.getCd());
+            statement.setInt(2, entYear);
+            statement.setString(3, classNum);
+            statement.setString(4, school.getCd());
+            rSet = statement.executeQuery();
+            list = postFilter(rSet);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
 
-			// 回数と得点を取得
-			int num = rSet.getInt("t_no");
-			int point = rSet.getInt("t_point");
-			// 得点マップにセット
-			test.putPoint(num, point);
-		}
-		if (currentStudentNo != null) {
-			// 結果が0件でなかった場合
-			// 最後のデータをリストに追加
-			list.add(test);
-		}
-		return list;
-	}
+        return list;
+    }
 
-	/**
-	 * filterメソッド 入学年度、クラス番号、科目、学校を指定して科目成績表示用の一覧を取得する
-	 *
-	 * @param entYear:int
-	 *            入学年度
-	 * @param classNum:String
-	 *            クラス番号
-	 * @param subject:Subject
-	 *            科目
-	 * @param school：School
-	 *            学校
-	 * @return 科目成績表示用のリスト:List<TestListSubject> 存在しない場合は0件のリスト
-	 * @throws Exception
-	 */
-	public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) throws Exception {
+    public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school, String studentNo) throws Exception {
+        if (school == null || (subject == null && studentNo == null)) {
+            throw new IllegalArgumentException("学校、科目、または学生番号が指定されていません。");
+        }
 
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-		List<TestListSubject> list = new ArrayList<>();
-		ResultSet rSet = null;
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
+        List<TestListSubject> list = new ArrayList<>();
+        ResultSet rSet = null;
 
-		String condition = "and T.subject_cd=? "
-				+ "where ST.ent_year=? and ST.class_num=? and ST.school_cd=? and ST.is_attend=true";
-		String order = " order by ST.no asc, T.no asc";
+        String condition = "where ST.no=? and ST.school_cd=? and ST.is_attend=true";
+        String additionalCondition = "";
+        if (entYear > 0) {
+            additionalCondition += " and ST.ent_year=?";
+        }
+        if (classNum != null && !classNum.isEmpty()) {
+            additionalCondition += " and ST.class_num=?";
+        }
+        if (subject != null) {
+            additionalCondition += " and T.subject_cd=?";
+        }
+        String order = " order by ST.no asc, T.no asc";
 
-		try {
-			statement = connection.prepareStatement(baseSql + condition + order);
-			statement.setString(1, subject.getCd());
-			statement.setInt(2, entYear);
-			statement.setString(3, classNum);
-			statement.setString(4, school.getCd());
-			rSet = statement.executeQuery();
-			list = postFilter(rSet);
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
+        try {
+            statement = connection.prepareStatement(baseSql + condition + additionalCondition + order);
+            int paramIndex = 1;
+            statement.setString(paramIndex++, studentNo);
+            statement.setString(paramIndex++, school.getCd());
+            if (entYear > 0) {
+                statement.setInt(paramIndex++, entYear);
+            }
+            if (classNum != null && !classNum.isEmpty()) {
+                statement.setString(paramIndex++, classNum);
+            }
+            if (subject != null) {
+                statement.setString(paramIndex++, subject.getCd());
+            }
+            rSet = statement.executeQuery();
+            list = postFilter(rSet);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
 
-		return list;
+        return list;
+    }
+
+	public List<TestListSubject> filter(String studentNo, String schoolCd, String classNum) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

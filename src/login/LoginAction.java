@@ -32,7 +32,7 @@ public class LoginAction extends HttpServlet {
 
 
         User user = new User();
-    
+
         if (userId != null && password != null && password.equals("password")) {
 
             user.setAuthenticated(true);
@@ -54,8 +54,6 @@ public class LoginAction extends HttpServlet {
             }
             session.setAttribute("schoolCd", schoolCd);
 
-            // Chuyển sang trang chính
-            response.sendRedirect(request.getContextPath() + "/testmanagement/subjectexe");
 
         } else {
             request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが正しくありません。");

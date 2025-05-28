@@ -6,15 +6,15 @@
 <div class="main">
     <h2 style="background-color:#d8e6f7; padding: 10px 20px;">科目別成績結果</h2>
 
-    <!-- Hiển thị thông báo lỗi nếu có -->
+    <!-- Thông báo lỗi -->
     <c:if test="${not empty errorMessage}">
         <div style="color:red; margin: 15px 0; padding: 10px; background-color: #ffe6e6; border: 1px solid #ff9999; border-radius: 5px;">
             ${errorMessage}
         </div>
     </c:if>
 
-    <!-- Form tìm kiếm -->
-    <form method="post" action="${pageContext.request.contextPath}/testmanagement/subjectexe" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+    <!-- Form tìm kiếm theo năm học, lớp, và môn học -->
+    <form id="searchForm1" method="post" action="${pageContext.request.contextPath}/testmanagement/subjectexe" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
         <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: end;">
             <div>
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">入学年度:</label>
@@ -47,8 +47,23 @@
             </div>
 
             <div>
+                <button type="submit" style="padding: 10px 25px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">
+                    検索
+                </button>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px; color: #666; font-size: 14px;">
+            ※ 入学年度、クラス、科目を選択して検索してください。
+        </div>
+    </form>
+
+    <!-- Form tìm kiếm theo mã số sinh viên -->
+    <form id="searchForm2" method="post" action="${pageContext.request.contextPath}/testmanagement/studentexe" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: end;">
+            <div>
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">学生番号:</label>
-                <input type="text" name="studentNo" value="${param.studentNo}" placeholder="学生番号を入力"
+                <input type="text" name="studentNo" value="" placeholder="学生番号を入力"
                        style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; min-width: 150px;">
             </div>
 
@@ -60,11 +75,11 @@
         </div>
 
         <div style="margin-top: 15px; color: #666; font-size: 14px;">
-            ※ 科目で検索する場合は科目を選択してください。学生番号で検索する場合は学生番号を入力してください。
+            ※ 学生番号を入力して検索してください。
         </div>
     </form>
 
-    <!-- Hiển thị tên môn học được chọn -->
+    <!-- Hiển thị tên môn học đã chọn -->
     <c:if test="${not empty subjectName}">
         <div style="margin: 20px 0; padding: 10px; background-color: #e8f4f8; border-left: 4px solid #007bff; border-radius: 4px;">
             <strong>選択された科目: ${subjectName}</strong>
@@ -73,68 +88,67 @@
 
     <!-- Kết quả tìm kiếm -->
     <c:choose>
-    <c:when test="${not empty resultList}">
-        <table border="1" cellpadding="12" cellspacing="0" style="border-collapse: collapse; width: 100%; min-width: 800px;">
-            <thead>
-                <tr>
-                    <th>入学年度</th>
-                    <th>クラス</th>
-                    <th>学生番号</th>
-                    <th>学生名</th>
-                    <th>成績</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="item" items="${resultList}" varStatus="status">
-                    <tr style="<c:if test='${status.index % 2 == 1}'>background-color: #f8f9fa;</c:if>">
-                        <td><c:out value="${item.entYear}" /></td>
-                        <td><c:out value="${item.classNum}" /></td>
-                        <td><c:out value="${item.studentNo}" /></td>
-                        <td><c:out value="${item.studentName}" /></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${not empty item.points}">
-                                    <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 5px;">
-                                        <c:forEach var="entry" items="${item.points}">
-                                            <span style="display: inline-block; padding: 4px 8px; background-color:
-                                                <c:choose>
-                                                    <c:when test='${entry.value >= 80}'>#d4edda</c:when>
-                                                    <c:when test='${entry.value >= 60}'>#fff3cd</c:when>
-                                                    <c:otherwise>#f8d7da</c:otherwise>
-                                                </c:choose>;
-                                                color:
-                                                <c:choose>
-                                                    <c:when test='${entry.value >= 80}'>#155724</c:when>
-                                                    <c:when test='${entry.value >= 60}'>#856404</c:when>
-                                                    <c:otherwise>#721c24</c:otherwise>
-                                                </c:choose>;
-                                                border-radius: 4px; font-size: 13px; font-weight: bold;">
-                                                第${entry.key}回: ${entry.value}点
-                                            </span>
-                                        </c:forEach>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div style="text-align: center; color: #6c757d; font-style: italic;">
-                                        未受験
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
+        <c:when test="${not empty resultList}">
+            <table border="1" cellpadding="12" cellspacing="0" style="border-collapse: collapse; width: 100%; min-width: 800px; font-family: 'Hiragino Kaku Gothic Pro', Meiryo, sans-serif;">
+                <thead>
+                    <tr style="background-color: #e9ecef;">
+                        <th>入学年度</th>
+                        <th>クラス</th>
+                        <th>学生番号</th>
+                        <th>学生名</th>
+                        <th>成績</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </c:when>
-    <c:otherwise>
-        <p style="color:red;">該当する成績データが見つかりませんでした。</p>
-    </c:otherwise>
-</c:choose>
+                </thead>
+                <tbody>
+                    <c:forEach var="item" items="${resultList}" varStatus="status">
+                        <tr style="<c:if test='${status.index % 2 == 1}'>background-color: #f8f9fa;</c:if>">
+                            <td><c:out value="${item.entYear}" /></td>
+                            <td><c:out value="${item.classNum}" /></td>
+                            <td><c:out value="${item.studentNo}" /></td>
+                            <td><c:out value="${item.studentName}" /></td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty item.points}">
+                                        <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 5px;">
+                                            <c:forEach var="entry" items="${item.points}">
+                                                <span style="display: inline-block; padding: 4px 8px; background-color:
+                                                    <c:choose>
+                                                        <c:when test='${entry.value >= 80}'>#d4edda</c:when>
+                                                        <c:when test='${entry.value >= 60}'>#fff3cd</c:when>
+                                                        <c:otherwise>#f8d7da</c:otherwise>
+                                                    </c:choose>;
+                                                    color:
+                                                    <c:choose>
+                                                        <c:when test='${entry.value >= 80}'>#155724</c:when>
+                                                        <c:when test='${entry.value >= 60}'>#856404</c:when>
+                                                        <c:otherwise>#721c24</c:otherwise>
+                                                    </c:choose>;
+                                                    border-radius: 4px; font-size: 13px; font-weight: bold;">
+                                                    第${entry.key}回: ${entry.value}点
+                                                </span>
+                                            </c:forEach>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="text-align: center; color: #6c757d; font-style: italic;">
+                                            未受験
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <p style="color:red;">該当する成績データが見つかりませんでした。</p>
+        </c:otherwise>
+    </c:choose>
 
-
-    <!-- ナビゲーション -->
+    <!-- Navigation -->
     <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-        <a href="${pageContext.request.contextPath}/testmanagement/list"
+        <a href="${pageContext.request.contextPath}/test_management/test_list.jsp"
            style="display: inline-block; padding: 12px 30px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">
             ← 検索画面に戻る
         </a>
@@ -146,6 +160,7 @@
         padding: 20px;
         max-width: 1200px;
         margin: 0 auto;
+        font-family: 'Hiragino Kaku Gothic Pro', Meiryo, sans-serif;
     }
 
     button:hover {
@@ -166,5 +181,25 @@
         box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
     }
 </style>
+
+<script>
+    document.getElementById('searchForm1').addEventListener('submit', function(event) {
+        var entYear = document.querySelector('select[name="entranceYear"]').value;
+        var classNum = document.querySelector('select[name="classNum"]').value;
+        var subject = document.querySelector('select[name="subject"]').value;
+        if (!entYear || !classNum || !subject) {
+            event.preventDefault();
+            alert('入学年度、クラス、科目を選択してください。');
+        }
+    });
+
+    document.getElementById('searchForm2').addEventListener('submit', function(event) {
+        var studentNo = document.querySelector('input[name="studentNo"]').value;
+        if (!studentNo) {
+            event.preventDefault();
+            alert('学生番号を入力してください。');
+        }
+    });
+</script>
 
 <jsp:include page="/main/footer.jsp" />
