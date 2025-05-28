@@ -15,6 +15,7 @@ import dao.TeacherDao;
 @WebServlet(urlPatterns = {"/login/loginexe"})
 public class LoginExecuteAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     public LoginExecuteAction() { super(); }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,22 +27,19 @@ public class LoginExecuteAction extends HttpServlet {
         Teacher teacher = null;
 
         try {
-            teacher = dao.login(id, password);
+            teacher = dao.login(id, password);  // Đăng nhập người dùng
         } catch (Exception e) {
             throw new ServletException(e);
         }
 
         if (teacher == null) {
-
             request.setAttribute("error", "IDまたはパスワードが間違っています");
             request.getRequestDispatcher("/login/login.jsp").forward(request, response);
         } else {
-
             teacher.setAuthenticated(true);
             HttpSession session = request.getSession();
-            session.setAttribute("user", teacher);
+            session.setAttribute("user", teacher);  // Lưu đối tượng người dùng vào session
             response.sendRedirect(request.getContextPath() + "/menu/menuaction");
-
         }
     }
 }

@@ -152,14 +152,24 @@
         }
     </style>
 
-    <script>
-        document.getElementById('searchForm2').addEventListener('submit', function(event) {
-            var studentNo = document.querySelector('input[name="f4"]').value; // Sửa từ "studentNo" thành "f4"
-            if (!studentNo) {
-                event.preventDefault();
-                alert('学生番号を入力してください。');
-            }
-        });
-    </script>
+   <script>
+    document.getElementById('searchForm1').addEventListener('submit', function(event) {
+        var entYear = document.querySelector('select[name="entranceYear"]').value;
+        var classNum = document.querySelector('select[name="classNum"]').value;
+        var subject = document.querySelector('select[name="subject"]').value;
+        if (!entYear || !classNum || !subject) {
+            event.preventDefault();
+            alert('入学年度、クラス、科目を選択してください。');
+        }
+    });
+
+    document.getElementById('searchForm2').addEventListener('submit', function(event) {
+        var studentNo = document.querySelector('input[name="studentNo"]').value;
+        if (!studentNo) {
+            event.preventDefault();
+            alert('学生番号を入力してください。');
+        }
+    });
+</script>
 
     <jsp:include page="/main/footer.jsp" />
