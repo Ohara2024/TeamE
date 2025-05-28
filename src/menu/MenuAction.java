@@ -1,29 +1,34 @@
 package menu;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/menu/menuaction"})
-public class MenuAction extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+import tool.Action;
 
-    public MenuAction() {
-        super();
-    }
+public class MenuAction extends Action {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-  
-        request.getRequestDispatcher("/main/menu.jsp").forward(request, response);
-    }
+	@Override
+	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
+		//ローカル変数の宣言 1
+		//なし
+
+		//リクエストパラメータ―の取得 2
+		//なし
+
+		//DBからデータ取得 3
+		//なし
+
+		//ビジネスロジック 4
+		//なし
+
+		//DBへデータ保存 5
+		//なし
+
+		//レスポンス値をセット 6
+		//なし
+
+		//JSPへフォワード 7
+		req.getRequestDispatcher("menu.jsp").forward(req, res);
+	}
 }
