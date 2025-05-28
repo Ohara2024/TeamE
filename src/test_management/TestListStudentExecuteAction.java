@@ -57,12 +57,12 @@ public class TestListStudentExecuteAction extends Action {
 		// DBからの取得3
 
 		student = studentDao.get(student_no);
-
 		if (student != null) {
-
-			tlslist = tlsDao.filter(student);
-
+		    tlslist = tlsDao.filter(student);
+		} else {
+		    req.setAttribute("errorMessage", "指定された学生番号の学生が見つかりません。");
 		}
+
 
 		List<String>cNumlist = cNumDao.filter(teacher.getSchool()); //クラス情報
 
