@@ -7,7 +7,7 @@
 <h2>成績参照</h2>
 
 <!-- FORM 1: 科目情報での検索 -->
-<form method="post" action="/TeamE/testmanagement/subjectexe">
+<form method="get" action="/TeamE/testmanagement/subjectexe">
     <fieldset style="border: none; padding: 10px 0; margin-bottom: 20px;">
         <legend style="font-weight: bold; margin-bottom: 5px;">科目情報</legend>
 
@@ -46,7 +46,7 @@
 </form>
 
 <!-- FORM 2: 学生番号での検索 -->
-<form method="post" action="/TeamE/testmanagement/studentexe">
+<form method="get" action="/TeamE/testmanagement/studentexe">
     <fieldset style="border: none; padding: 10px 0;">
         <legend style="font-weight: bold; margin-bottom: 5px;">学生情報</legend>
 
