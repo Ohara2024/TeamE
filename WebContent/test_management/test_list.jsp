@@ -1,8 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<jsp:include page="/main/header.jsp" />
-<jsp:include page="/main/side_menu.jsp" />
+<jsp:include page="/main/base.jsp" />
+
+<div class="main-content">
 
 <h2>成績参照</h2>
 
@@ -76,5 +77,5 @@
 <c:if test="${empty cNumlist and empty list}">
     <p style="color: red;">データベースにクラスまたは科目のデータがありません。管理者にご連絡ください。</p>
 </c:if>
-
+</div>
 <jsp:include page="/main/footer.jsp" />

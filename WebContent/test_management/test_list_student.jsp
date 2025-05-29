@@ -1,7 +1,7 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/main/header.jsp" />
-<jsp:include page="/main/side_menu.jsp" />
+<jsp:include page="/main/base.jsp" />
+
 
 <div class="main">
     <h2 style="background-color:#d8e6f7; padding: 10px 20px;">学生別成績結果</h2>
