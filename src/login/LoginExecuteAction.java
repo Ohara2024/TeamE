@@ -15,6 +15,7 @@ import dao.TeacherDao;
 @WebServlet(urlPatterns = {"/login/loginexe"})
 public class LoginExecuteAction extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     public LoginExecuteAction() { super(); }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,16 +33,13 @@ public class LoginExecuteAction extends HttpServlet {
         }
 
         if (teacher == null) {
-
             request.setAttribute("error", "IDまたはパスワードが間違っています");
             request.getRequestDispatcher("/login/login.jsp").forward(request, response);
         } else {
-
             teacher.setAuthenticated(true);
             HttpSession session = request.getSession();
             session.setAttribute("user", teacher);
             response.sendRedirect(request.getContextPath() + "/menu/menuaction");
-
         }
     }
 }

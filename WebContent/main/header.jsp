@@ -31,7 +31,10 @@
 <div class="header-container">
   <div class="header-title">得点管理システム</div>
   <div class="header-user">
-    大原 太郎様
-    <a href="/TeamE/logout/logoutaction">ログアウト</a>
+    <c:if test="${not empty user}">
+        ${user.name}様  <!-- Hiển thị tên người dùng -->
+        <a href="/TeamE/logout/logoutaction">ログアウト</a> <!-- Liên kết đăng xuất -->
+    </c:if>
+
   </div>
 </div>
