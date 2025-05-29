@@ -197,7 +197,7 @@
         var studentNo = document.querySelector('input[name="studentNo"]').value;
         if (!studentNo) {
             event.preventDefault();
-            alert('学生番号を入力してください。');
+            alert('学生番号を入力してください');
         }
     });
 </script>
