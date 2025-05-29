@@ -16,7 +16,6 @@ public class StudentCreateExecuteAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
         School school = teacher.getSchool();
@@ -26,12 +25,14 @@ public class StudentCreateExecuteAction extends Action {
         student.setName(req.getParameter("name"));
         student.setEntYear(Integer.parseInt(req.getParameter("ent_year")));
         student.setClassNum(req.getParameter("class_num"));
-        student.setAttend(Boolean.parseBoolean(req.getParameter("is_attend")));
+        student.setAttend("true".equals(req.getParameter("is_attend")));
         student.setSchool(school);
 
         StudentDao dao = new StudentDao();
         dao.save(student);
 
+        req.setAttribute("student", student);
         req.getRequestDispatcher("/student_management/student_create_done.jsp").forward(req, res);
     }
 }
+
