@@ -118,7 +118,7 @@
 
         <!-- Navigation -->
         <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-            <a href="${pageContext.request.contextPath}/test_management/test_list.jsp"
+            <a href="${pageContext.request.contextPath}/testmanagement/list"
                style="display: inline-block; padding: 12px 30px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">
                 ← 検索画面に戻る
             </a>
