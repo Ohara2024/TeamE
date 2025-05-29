@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +12,6 @@ import bean.School;  // Schoolクラスがbeanパッケージにある想定
 import bean.Student;
 import dao.StudentDao;
 
-@WebServlet("/subjectmanager/TestRegistAction")
 public class TestRegistAction extends HttpServlet {
 
     @Override
@@ -64,4 +62,4 @@ public class TestRegistAction extends HttpServlet {
             request.getRequestDispatcher("/subject_manager/test_regist.jsp").forward(request, response);
         }
     }
-} 
+}

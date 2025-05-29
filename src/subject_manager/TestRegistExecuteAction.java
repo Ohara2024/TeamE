@@ -7,12 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/subjectmanager/TestRegistExecuteAction")
 public class TestRegistExecuteAction extends HttpServlet {
 
     private static final String DB_URL = "jdbc:h2:~/exam";
