@@ -95,8 +95,8 @@
                         <tr style="background-color: #e9ecef;">
                             <th>科目名</th>
                             <th>科目コード</th>
-                            <th>試験回数</th>
-                            <th>最新の得点</th>
+                            <th>回数</th>
+                            <th>点数</th>
                         </tr>
                     </thead>
                     <tbody>
