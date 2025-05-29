@@ -63,7 +63,7 @@
             <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: end;">
                 <div>
                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">学生番号:</label>
-                    <input type="text" name="f4" value="${f4}" placeholder="学生番号を入力"
+                    <input type="text" name="studentNo" value="${studentNo}" placeholder="学生番号を入力"
                            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; min-width: 150px;">
                 </div>
 
