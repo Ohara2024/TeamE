@@ -27,6 +27,8 @@ public class FrontController extends HttpServlet {
             action = new subject_management.SubjectCreateAction();
         } else if ("/subjectmanagement/createexe.action".equals(path)) {
             action = new subject_management.SubjectCreateExecuteAction();
+
+            
         }
         // 必要に応じて他のActionも追加してください
 
