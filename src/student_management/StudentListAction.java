@@ -8,22 +8,32 @@ import javax.servlet.http.HttpSession;
 
 import bean.School;
 import bean.Student;
+import dao.SchoolDao;
 import dao.StudentDao;
 import tool.Action2;
 
 public class StudentListAction extends Action2 {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Lấy session và thông tin trường học
         HttpSession session = request.getSession();
-        School school = (School) session.getAttribute("loginSchool");
 
-        // Lấy tham số từ request
+        // ① セッションから schoolCd を取得
+        String schoolCd = (String) session.getAttribute("schoolCd");
+
+
+        // ② schoolCd を元に School オブジェクトを取得
+        SchoolDao schoolDao = new SchoolDao();
+        School school = schoolDao.get(schoolCd);
+        if (school == null) {
+            request.setAttribute("errorMessage", "学校情報の取得に失敗しました。");
+            return "/main/error.jsp"; // 適宜エラーページに変更
+        } //村本先生へ　ここができません
+
+        // ③ リクエストパラメータを取得
         String entYearStr = request.getParameter("ent_year");
         String classNum = request.getParameter("class_num");
         String isAttendStr = request.getParameter("is_attend");
 
-        // Lọc danh sách sinh viên
         List<Student> list;
         StudentDao dao = new StudentDao();
 
@@ -35,10 +45,9 @@ public class StudentListAction extends Action2 {
             list = dao.filter(school, true);
         }
 
-        // Đặt danh sách vào request để hiển thị trên JSP
         request.setAttribute("list", list);
 
-        // Trả về đường dẫn JSP
         return "/student_management/student_list.jsp";
     }
 }
+

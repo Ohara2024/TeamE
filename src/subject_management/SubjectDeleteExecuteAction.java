@@ -25,10 +25,10 @@ public class SubjectDeleteExecuteAction extends Action2 {
         }
 
         if (deleteResult) {
-            return "/subjectmanagement/subject_delete_done.jsp";
+            return "/subject_management/subject_delete_done.jsp";
         } else {
             request.setAttribute("errorMsg", "科目の削除に失敗しました。");
-            return "/subjectmanagement/subject_list.jsp";
+            return "/subject_management/subject_list.jsp";
         }
     }
 }

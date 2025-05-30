@@ -1,0 +1,201 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>成績管理</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 1em;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        nav {
+            width: 200px;
+            background-color: #f0f0f0;
+            border-right: 1px solid #ccc;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav li {
+            margin-bottom: 1em;
+        }
+        nav a {
+            color: #004080;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            flex: 1;
+            padding: 2em;
+            box-sizing: border-box;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+        h2 {
+            color: #004080;
+        }
+        .form-box {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1.5em;
+            background-color: #f9f9f9;
+            margin-bottom: 2em;
+        }
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            margin-bottom: 1em;
+        }
+        .form-item label {
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        select, button, input[type=number] {
+            padding: 0.5em;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #ccc;
+            padding: 0.5em;
+            text-align: center;
+        }
+        .result-table th {
+            background-color: #eef;
+        }
+        .submit-button {
+            margin-top: 1em;
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #003366;
+        }
+        .error {
+            color: red;
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+<header>得点管理システム</header>
+<div class="container">
+    <nav>
+        <ul>
+            <li><a href="<%= request.getContextPath() %>">メニュー</a></li>
+            <li><a href="<%= request.getContextPath() %>">学生管理</a></li>
+            <li><a href="<%= request.getContextPath() %>">成績管理</a></li>
+            <li><a href="<%= request.getContextPath() %>">　成績登録</a></li>
+            <li><a href="<%= request.getContextPath() %>">　成績参照</a></li>
+            <li><a href="<%= request.getContextPath() %>">科目管理</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>成績登録</h2>
+
+        <c:if test="${not empty error}">
+            <div class="error">${error}</div>
+        </c:if>
+
+        <div class="form-box">
+            <form action="${pageContext.request.contextPath}/subjectmanagement/regist.action" method="post">
+                <div class="form-item">
+                    <label for="admissionYear">入学年度</label>
+                    <select id="admissionYear" name="admissionYear">
+                        <option value="">--選択--</option>
+                        <c:forEach var="year" items="${yearList}">
+                            <option value="${year}" <c:if test="${year eq selectedAdmissionYear}">selected</c:if>>${year}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="className">クラス</label>
+                    <select id="className" name="className">
+                        <option value="">--選択--</option>
+                        <c:forEach var="cls" items="${classList}">
+                            <option value="${cls}" <c:if test="${cls eq selectedClassName}">selected</c:if>>${cls}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="subject">科目</label>
+                    <select id="subject" name="subject">
+                        <option value="">--選択--</option>
+                        <c:forEach var="subj" items="${subjectList}">
+                            <option value="${subj}" <c:if test="${subj eq selectedSubject}">selected</c:if>>${subj}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label for="examCount">回数</label>
+                    <select id="examCount" name="examCount">
+                        <option value="">--選択--</option>
+                        <c:forEach var="i" begin="1" end="5">
+                            <option value="${i}" <c:if test="${i eq selectedExamCount}">selected</c:if>>${i}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <button type="submit">検索</button>
+                </div>
+            </form>
+        </div>
+
+        <c:if test="${not empty studentList}">
+            <form action="${pageContext.request.contextPath}/subjectmanagement/registexe.action" method="post">
+                <table class="result-table">
+                    <tr>
+                        <th>学生番号</th>
+                        <th>氏名</th>
+                        <th>得点</th>
+                    </tr>
+                    <c:forEach var="stu" items="${studentList}">
+                        <tr>
+                            <td>${stu.no}</td>
+                            <td>${stu.name}</td>
+                            <td>
+                                <input type="number" name="score_${stu.no}" min="0" max="100" required>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <input type="hidden" name="subjectId" value="${selectedSubject}">
+                <input type="hidden" name="examCount" value="${selectedExamCount}">
+                <button type="submit" class="submit-button">登録</button>
+            </form>
+        </c:if>
+    </main>
+</div>
+</body>
+</html>

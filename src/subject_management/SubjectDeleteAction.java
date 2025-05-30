@@ -15,6 +15,6 @@ public class SubjectDeleteAction extends Action2 {
         request.setAttribute("name", name);
 
         // Trả về đường dẫn JSP để Action2 forward
-        return "/subjectmanagement/subject_delete.jsp";
+        return "/subject_management/subject_delete.jsp";
     }
 }

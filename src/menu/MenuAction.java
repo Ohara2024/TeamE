@@ -1,21 +1,63 @@
+
+
 package menu;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.School;
 import dao.SchoolDao;
-import tool.Action2;
 
-public class MenuAction extends Action2 {
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // Lấy trường học và đặt vào session
-        SchoolDao dao = new SchoolDao();
-        School school = dao.get("oom"); // Cập nhật schoolCd theo thực tế
-        request.getSession().setAttribute("school", school);
+@WebServlet(urlPatterns = {"/menu/menuaction"})
 
-        // Trả về đường dẫn JSP để Action2 forward
-        return "/main/menu.jsp";
+public class MenuAction extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    public MenuAction() {
+
+        super();
+
     }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+            throws ServletException, IOException {
+
+        try {
+
+            // 学校情報を取得してセッションにセット
+
+            SchoolDao dao = new SchoolDao();
+
+            School school = dao.get("oom"); // 学校コードはデータベースに合わせてください
+
+            request.getSession().setAttribute("school", school);
+
+            // メニューに進む
+
+            request.getRequestDispatcher("/main/menu.jsp").forward(request, response);
+
+        } catch (Exception e) {
+
+            throw new ServletException(e);
+
+        }
+
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+            throws ServletException, IOException {
+
+        doGet(request, response);
+
+    }
+
 }
+

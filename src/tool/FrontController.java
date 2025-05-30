@@ -71,18 +71,7 @@ public class FrontController extends HttpServlet {
         } else if ("/testmanagement/subjectexe.action".equals(path)) {
             action2 = new test_management.TestListSubjectExecuteAction();
 
-        } else if ("/login/login.action".equals(path)) {
-            action2 = new login.LoginAction();
-
-        } else if ("/login/execute.action".equals(path)) { // Sửa loginexe.action thành execute.action
-            action2 = new login.LoginExecuteAction();
-
-        } else if ("/logout/logout.action".equals(path)) {
-            action2 = new logout.LogoutAction();
-
-        } else if ("/menu/menu.action".equals(path)) { // Sửa menu.action thành menuaction.action
-            action2 = new menu.MenuAction();
-        }
+               }
 
         // Xử lý yêu cầu
         try {

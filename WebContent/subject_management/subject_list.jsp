@@ -2,10 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.List, bean.Subject" %>
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
-
+<jsp:include page="/main/base.jsp" />
 
 <html>
 <head>
+<div class="main-content">
     <title>科目一覧</title>
     <style>
         table {
@@ -44,11 +45,11 @@
             <td>${subject.cd}</td>
             <td>${subject.name}</td>
             <td>
-<a href="${pageContext.request.contextPath}/subjectmanagement/update.action?cd=${subject.cd}" class="button">編集</a>
+<a href="${pageContext.request.contextPath}/subjectmanagement/update.action" class="button">編集</a>
 
                 <form action="${pageContext.request.contextPath}/subjectmanagement/delete.action" method="post" style="display:inline;">
                     <input type="hidden" name="cd" value="${subject.cd}">
-<a href="${pageContext.request.contextPath}/subjectmanagement/delete.action?cd=${subject.cd}" class="button">削除</a>
+<a href="${pageContext.request.contextPath}/subjectmanagement/delete.action" class="button">削除</a>
                 </form>
             </td>
         </tr>
@@ -56,7 +57,7 @@
 </table>
 
 <p><a href="${pageContext.request.contextPath}/subjectmanagement/create.action">新規登録</a></p>
-
+</div>
 </body>
 </html>
-
+<jsp:include page="/main/footer.jsp" />
