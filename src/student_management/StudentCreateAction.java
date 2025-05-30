@@ -12,10 +12,11 @@ import javax.servlet.http.HttpSession;
 import bean.School;
 import bean.Teacher;
 import dao.ClassNumDao;
-import tool.Action;
+import tool.Action2;
 
 @WebServlet(urlPatterns = {"/student/create"})
-public class StudentCreateAction extends Action {
+public class StudentCreateAction extends Action2 {
+
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

@@ -14,10 +14,10 @@ import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
-import tool.Action;
+import tool.Action2;
 
 @WebServlet(urlPatterns = {"/student/update"})
-public class StudentUpdateAction extends Action {
+public class StudentUpdateAction extends Action2 {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
         HttpSession session = req.getSession();

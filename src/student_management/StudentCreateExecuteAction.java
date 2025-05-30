@@ -9,10 +9,10 @@ import bean.School;
 import bean.Student;
 import bean.Teacher;
 import dao.StudentDao;
-import tool.Action;
+import tool.Action2;
 
 @WebServlet(urlPatterns = {"/student/create/execute"})
-public class StudentCreateExecuteAction extends Action {
+public class StudentCreateExecuteAction extends Action2 {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

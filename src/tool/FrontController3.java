@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("*.action")
-public class FrontController extends HttpServlet {
+public class FrontController3 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -27,15 +27,7 @@ public class FrontController extends HttpServlet {
             action = new subject_management.SubjectCreateAction();
         } else if ("/subjectmanagement/createexe.action".equals(path)) {
             action = new subject_management.SubjectCreateExecuteAction();
-        } else if ("/subjectmanagement/delete.action".equals(path)) {
-            action = new subject_management.SubjectDeleteAction();
-        } else if ("/subjectmanagement/deleteexe.action".equals(path)) {
-            action = new subject_management.SubjectDeleteExecuteAction();
-        } else if ("/subjectmanagement/deleteexe.action".equals(path)) {
-            action = new subject_management.TestRegistAction();
-        } else if ("/subjectmanagement/regist.action".equals(path)) {
-            action = new subject_management.TestRegistExecuteAction();
-        } else if ("/subjectmanagement/registexe.action".equals(path)) {
+        }{
         }
         // 必要に応じて他のActionも追加してください
 
