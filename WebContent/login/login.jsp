@@ -35,7 +35,7 @@
 <body>
 <div class="login-form">
     <h2>ログイン</h2>
-    <form action="${pageContext.request.contextPath}/login/loginexe.action" method="post">
+    <form action="${pageContext.request.contextPath}/login/execute.action" method="post">
         <label for="id">教員ID:</label>
         <input type="text" name="id" id="id" required autofocus />
 

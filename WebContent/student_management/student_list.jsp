@@ -4,7 +4,7 @@
 <head><title>学生管理</title></head>
 <body>
 <h2>学生管理</h2>
-<form action="student_list" method="get">
+<form action="${pageContext.request.contextPath}/studentmanagement/list.action" method="get">
     入学年度:
     <select name="ent_year">
         <c:forEach var="year" items="${entYearList}">
@@ -48,6 +48,6 @@
     </table>
 </c:if>
 
-<a href="${pageContext.request.contextPath}/studentmanagement/creat.action">新規登録</a>
+<a href="${pageContext.request.contextPath}/studentmanagement/create.action">新規登録</a>
 </body>
 </html>
