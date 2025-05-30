@@ -80,7 +80,7 @@ public class FrontController extends HttpServlet {
         } else if ("/logout/logout.action".equals(path)) {
             action2 = new logout.LogoutAction();
 
-        } else if ("/menu/menuaction.action".equals(path)) { // Sửa menu.action thành menuaction.action
+        } else if ("/menu/menu.action".equals(path)) { // Sửa menu.action thành menuaction.action
             action2 = new menu.MenuAction();
         }
 
