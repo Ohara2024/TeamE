@@ -1,29 +1,18 @@
 package subject_management;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.School;  // Schoolクラスがbeanパッケージにある想定
+import bean.School;
 import bean.Student;
 import dao.StudentDao;
+import tool.Action2;
 
-public class TestRegistAction extends HttpServlet {
-
+public class TestRegistAction extends Action2 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("/subject_management/test_regist.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
 
         String admissionYear = request.getParameter("admissionYear");
@@ -37,29 +26,25 @@ public class TestRegistAction extends HttpServlet {
             examCount == null || examCount.isEmpty()) {
 
             request.setAttribute("error", "すべての項目を選択してください。");
-            request.getRequestDispatcher("/subject_management/test_regist.jsp").forward(request, response);
-            return;
+            return "/subject_management/test_regist.jsp";
         }
 
         try {
-            // Schoolオブジェクトの作成・設定は適宜調整してください
             School school = new School();
-            // 例: classNameを学校名に使う場合（実際の仕様に合わせてください）
-            school.setName(className);
+            school.setName(className); // Điều chỉnh theo thực tế
 
             int entYear = Integer.parseInt(admissionYear);
-            boolean isAttend = true;  // ここは必要に応じて変える
+            boolean isAttend = true; // Điều chỉnh theo cần thiết
 
             StudentDao studentDao = new StudentDao();
             List<Student> studentList = studentDao.filter(school, entYear, isAttend);
 
             request.setAttribute("studentList", studentList);
-            request.getRequestDispatcher("/subject_management/test_regist.jsp").forward(request, response);
-
+            return "/subject_management/test_regist.jsp";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "学生情報の取得に失敗しました。");
-            request.getRequestDispatcher("/subject_management/test_regist.jsp").forward(request, response);
+            return "/subject_management/test_regist.jsp";
         }
     }
 }

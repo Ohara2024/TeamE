@@ -117,11 +117,11 @@
             String name = request.getParameter("name");
         %>
 
-        <form action="<%= request.getContextPath() %>/scoremanagement/deleteexe.action" method="post">
+        <form action="${pageContext.request.contextPath}/scoremanagement/deleteexe.action" method="post">
             <input type="hidden" name="cd" value="<%= (cd != null ? cd : "") %>" />
             <div class="buttons">
                 <input type="submit" value="削除する" class="delete-btn" />
-                <a href="<%= request.getContextPath() %>/scoremanagement/list.action" class="cancel-btn">キャンセル</a>
+                <a href="${pageContext.request.contextPath}/scoremanagement/list.action" class="cancel-btn">キャンセル</a>
             </div>
         </form>
     </main>

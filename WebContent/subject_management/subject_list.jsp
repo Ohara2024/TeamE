@@ -46,7 +46,7 @@
             <td>
 <a href="${pageContext.request.contextPath}/subjectmanagement/update.action?cd=${subject.cd}" class="button">編集</a>
 
-                <form action="${pageContext.request.contextPath}/subject_delete" method="post" style="display:inline;">
+                <form action="${pageContext.request.contextPath}/subjectmanagement/delete.action" method="post" style="display:inline;">
                     <input type="hidden" name="cd" value="${subject.cd}">
 <a href="${pageContext.request.contextPath}/subjectmanagement/delete.action?cd=${subject.cd}" class="button">削除</a>
                 </form>

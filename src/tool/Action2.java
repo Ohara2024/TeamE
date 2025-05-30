@@ -7,14 +7,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public abstract class Action2 extends HttpServlet {
-    public abstract void execute(
-    		HttpServletRequest request, HttpServletResponse response
-    		) throws Exception;
+    // Phương thức trừu tượng trả về String để chỉ định JSP hoặc URL
+    public abstract String execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            execute(req, resp);
+            // Gọi execute và lấy đường dẫn JSP/URL
+            String nextPage = execute(req, resp);
+            if (nextPage != null) {
+                // Xử lý forward hoặc redirect dựa trên giá trị trả về
+                if (nextPage.startsWith("redirect:")) {
+                    String redirectUrl = nextPage.substring("redirect:".length());
+                    resp.sendRedirect(redirectUrl);
+                } else {
+                    req.getRequestDispatcher(nextPage).forward(req, resp);
+                }
+            }
         } catch (Exception e) {
             throw new IOException(e);
         }
@@ -22,10 +31,7 @@ public abstract class Action2 extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            execute(req, resp);
-        } catch (Exception e) {
-            throw new IOException(e);
-        }
+        // Gọi doGet để xử lý giống nhau cho cả GET và POST
+        doGet(req, resp);
     }
 }

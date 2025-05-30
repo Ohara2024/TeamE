@@ -1,6 +1,5 @@
 package student_management;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,11 +10,9 @@ import bean.Teacher;
 import dao.StudentDao;
 import tool.Action2;
 
-@WebServlet(urlPatterns = {"/student/create/execute"})
 public class StudentCreateExecuteAction extends Action2 {
-
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
         School school = teacher.getSchool();
@@ -32,7 +29,8 @@ public class StudentCreateExecuteAction extends Action2 {
         dao.save(student);
 
         req.setAttribute("student", student);
-        req.getRequestDispatcher("/student_management/student_create_done.jsp").forward(req, res);
+
+        // Trả về đường dẫn JSP để Action2 forward
+        return "/student_management/student_create_done.jsp";
     }
 }
-

@@ -1,33 +1,20 @@
 package subject_management;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubjectDeleteAction extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+import tool.Action2;
 
+public class SubjectDeleteAction extends Action2 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String cd = request.getParameter("cd");
         String name = request.getParameter("name");
 
         request.setAttribute("cd", cd);
         request.setAttribute("name", name);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/subjectmanagement/subject_delete.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
+        // Trả về đường dẫn JSP để Action2 forward
+        return "/subjectmanagement/subject_delete.jsp";
     }
 }

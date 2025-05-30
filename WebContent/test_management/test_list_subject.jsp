@@ -14,7 +14,7 @@
     </c:if>
 
     <!-- Form tìm kiếm theo năm học, lớp, và môn học -->
-    <form id="searchForm1" method="post" action="${pageContext.request.contextPath}/testmanagement/subjectexe" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+    <form id="searchForm1" method="post" action="${pageContext.request.contextPath}/testmanagement/subjectexe.action" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
         <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: end;">
             <div>
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">入学年度:</label>
@@ -59,7 +59,7 @@
     </form>
 
     <!-- Form tìm kiếm theo mã số sinh viên -->
-    <form id="searchForm2" method="post" action="${pageContext.request.contextPath}/testmanagement/studentexe" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
+    <form id="searchForm2" method="post" action="${pageContext.request.contextPath}/testmanagement/studentexe.action" style="margin: 20px 0; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
         <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: end;">
             <div>
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">学生番号:</label>
@@ -148,7 +148,7 @@
 
     <!-- Navigation -->
     <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-        <a href="${pageContext.request.contextPath}/testmanagement/list"
+        <a href="${pageContext.request.contextPath}/testmanagement/list.action"
            style="display: inline-block; padding: 12px 30px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background-color 0.3s;">
             ← 検索画面に戻る
         </a>

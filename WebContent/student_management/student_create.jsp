@@ -4,7 +4,7 @@
 <head><title>学生情報登録</title></head>
 <body>
 <h2>学生情報登録</h2>
-<form action="/student/create/execute" method="post">
+<form action="${pageContext.request.contextPath}/studentmanagement/createxe.action" method="post">
     学生番号: <input type="text" name="no" maxlength="10" required><br>
     氏名: <input type="text" name="name" maxlength="30" required><br>
 
@@ -27,6 +27,6 @@
     在学中: <input type="checkbox" name="is_attend" value="true" checked><br>
     <input type="submit" value="登録して終了">
 </form>
-<a href="student_list">戻る</a>
+<a href="${pageContext.request.contextPath}/studentmanagement/list.action">戻る</a>
 </body>
 </html>

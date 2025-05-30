@@ -11,6 +11,6 @@
 </head>
 <body>
     <h2>ログアウトしました</h2>
-    <p><a href="/TeamE/login/loginaction">ログイン画面へ戻る</a></p>
+    <p><a href="${pageContext.request.contextPath}/login/login.action">ログイン画面へ戻る</a></p>
 </body>
 </html>

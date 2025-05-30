@@ -1,25 +1,19 @@
 package logout;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/logout/logoutaction"})
-public class LogoutAction extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    public LogoutAction() { super(); }
+import tool.Action2;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+
+public class LogoutAction extends Action2 {
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/logout/logout.jsp");
+        return "redirect:/login/login.jsp"; // Chuyển hướng về trang đăng nhập
     }
 }

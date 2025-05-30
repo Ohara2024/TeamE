@@ -20,7 +20,6 @@ import tool.Action2;
 
 @WebServlet(urlPatterns = {"/testmanagement/subjectexe"})
 public class TestListSubjectExecuteAction extends Action2 {
-
     private List<Integer> getEntYearList() {
         List<Integer> list = new ArrayList<>();
         int currentYear = LocalDate.now().getYear();
@@ -31,14 +30,13 @@ public class TestListSubjectExecuteAction extends Action2 {
     }
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         if (teacher == null || teacher.getSchool() == null) {
             req.setAttribute("errorMessage", "ログイン情報または学校情報が取得できません。");
-            req.getRequestDispatcher("/test_management/test_list.jsp").forward(req, res);
-            return;
+            return "/test_management/test_list.jsp";
         }
 
         School school = teacher.getSchool();
@@ -55,8 +53,7 @@ public class TestListSubjectExecuteAction extends Action2 {
             req.setAttribute("selectedYear", entYearStr);
             req.setAttribute("selectedClass", classNum);
             req.setAttribute("selectedSubject", subjectCd);
-            req.getRequestDispatcher("/test_management/test_list_subject.jsp").forward(req, res);
-            return;
+            return "/test_management/test_list_subject.jsp";
         }
 
         Integer entYear = null;
@@ -70,8 +67,7 @@ public class TestListSubjectExecuteAction extends Action2 {
             req.setAttribute("selectedYear", entYearStr);
             req.setAttribute("selectedClass", classNum);
             req.setAttribute("selectedSubject", subjectCd);
-            req.getRequestDispatcher("/test_management/test_list_subject.jsp").forward(req, res);
-            return;
+            return "/test_management/test_list_subject.jsp";
         }
 
         SubjectDao subjectDao = new SubjectDao();
@@ -86,19 +82,12 @@ public class TestListSubjectExecuteAction extends Action2 {
             req.setAttribute("selectedYear", entYear);
             req.setAttribute("selectedClass", classNum);
             req.setAttribute("selectedSubject", subjectCd);
-            req.getRequestDispatcher("/test_management/test_list_subject.jsp").forward(req, res);
-            return;
+            return "/test_management/test_list_subject.jsp";
         }
 
-        List<TestListSubject> resultList = new ArrayList<>();
-
-        try {
-            resultList = testListSubjectDao.filter(entYear, classNum, subject, school);
-            if (resultList.isEmpty()) {
-                req.setAttribute("errorMessage", "選択された科目（" + subject.getName() + "）に該当する成績データが見つかりませんでした。");
-            }
-        } catch (Exception e) {
-            req.setAttribute("errorMessage", "データ取得中にエラーが発生しました: " + e.getMessage());
+        List<TestListSubject> resultList = testListSubjectDao.filter(entYear, classNum, subject, school);
+        if (resultList.isEmpty()) {
+            req.setAttribute("errorMessage", "選択された科目（" + subject.getName() + "）に該当する成績データが見つかりませんでした。");
         }
 
         req.setAttribute("resultList", resultList);
@@ -110,6 +99,7 @@ public class TestListSubjectExecuteAction extends Action2 {
         req.setAttribute("selectedSubject", subjectCd);
         req.setAttribute("subjectName", subject.getName());
 
-        req.getRequestDispatcher("/test_management/test_list_subject.jsp").forward(req, res);
+        // Trả về đường dẫn JSP để Action2 forward
+        return "/test_management/test_list_subject.jsp";
     }
 }

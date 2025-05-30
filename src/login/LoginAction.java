@@ -1,40 +1,22 @@
 package login;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.User;
+import tool.Action2;
 
-@WebServlet(urlPatterns = {"/login/loginaction"})
-public class LoginAction extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    public LoginAction() { super(); }
-
+public class LoginAction extends Action2 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("/login/login.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // Xử lý GET: Hiển thị form đăng nhập
         String userId = request.getParameter("userId");
         String password = request.getParameter("password");
-
 
         User user = new User();
 
         if (userId != null && password != null && password.equals("password")) {
-
             user.setAuthenticated(true);
 
             HttpSession session = request.getSession();
@@ -47,17 +29,16 @@ public class LoginAction extends HttpServlet {
             } else if ("knaka".equals(userId)) {
                 schoolCd = "tky";
             } else {
-                // Nếu user không hợp lệ
                 request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが正しくありません。");
-                request.getRequestDispatcher("/login/login.jsp").forward(request, response);
-                return;
+                return "/login/login.jsp";
             }
             session.setAttribute("schoolCd", schoolCd);
-
-
         } else {
             request.setAttribute("errorMessage", "ユーザーIDまたはパスワードが正しくありません。");
-            request.getRequestDispatcher("/login/login.jsp").forward(request, response);
+            return "/login/login.jsp";
         }
+
+        // Giả định sau khi đăng nhập thành công, redirect về menu
+        return "redirect:/menu/menuaction";
     }
 }

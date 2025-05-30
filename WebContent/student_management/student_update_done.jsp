@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>学生情報変更完了</title>
@@ -12,7 +13,7 @@
 <body>
     <h2>学生情報変更</h2>
     <p>変更が完了しました。</p>
-    <a href="/student/update?no=${student.no}">戻る</a>
-    <a href="/student_list">学生一覧</a>
+    <a href="${pageContext.request.contextPath}/studentmanagement/update.action?no=${student.no}">戻る</a>
+    <a href="${pageContext.request.contextPath}/studentmanagement/list.action">学生一覧</a>
 </body>
 </html>

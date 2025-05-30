@@ -13,7 +13,7 @@
 </head>
 <body>
     <h2>学生情報変更</h2>
-    <form action="/student/update/execute" method="post">
+    <form action="${pageContext.request.contextPath}/studentmanagement/updateexe.action" method="post">
         <label>入学年度</label>
         <input type="text" name="ent_year" value="${student.entYear}" readonly>
 
@@ -37,6 +37,6 @@
             <button type="submit">変更</button>
         </div>
     </form>
-    <a href="/student_list">戻る</a>
+    <a href="${pageContext.request.contextPath}/studentmanagement/list.action">戻る</a>
 </body>
 </html>

@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="/main/base.jsp" />
+
+<div class="main-content">
 <html>
 <head>
     <meta charset="UTF-8">
@@ -75,18 +78,7 @@
     </style>
 </head>
 <body>
-<header>得点管理システム</header>
-<div class="container">
-    <nav>
-        <ul>
-            <li><a href="<%= request.getContextPath() %>">メニュー</a></li>
-            <li><a href="<%= request.getContextPath() %>">学生管理</a></li>
-            <li><a href="<%= request.getContextPath() %>">成績管理</a></li>
-            <li><a href="<%= request.getContextPath() %>">　成績登録</a></li>
-            <li><a href="<%= request.getContextPath() %>">　成績参照</a></li>
-            <li><a href="<%= request.getContextPath() %>">科目管理</a></li>
-        </ul>
-    </nav>
+
 
     <main>
         <h2>学生情報登録</h2>
@@ -99,10 +91,12 @@
             </div>
 
             <div class="form-item">
-                 <a href="<%= request.getContextPath() %>/subjectmanagement/regist.action" class="button-link">戻る</a>
+
+                 <p><a href="${pageContext.request.contextPath}/subjectmanagement/regist.action">戻る</a></p>
             </div>
         </div>
     </main>
+</div>
 </div>
 </body>
 </html>

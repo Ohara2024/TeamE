@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,10 +15,10 @@ import dao.ClassNumDao;
 import dao.StudentDao;
 import tool.Action2;
 
-@WebServlet(urlPatterns = {"/student/update"})
+
 public class StudentUpdateAction extends Action2 {
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
         School school = teacher.getSchool();
@@ -41,6 +40,7 @@ public class StudentUpdateAction extends Action2 {
         req.setAttribute("classNumList", classNumList);
         req.setAttribute("entYearList", entYearList);
 
-        req.getRequestDispatcher("/student_management/student_update.jsp").forward(req, res);
+        // Trả về đường dẫn JSP để Action2 forward
+        return "/student_management/student_update.jsp";
     }
 }

@@ -1,30 +1,15 @@
 package subject_management;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Subject;
 import dao.SubjectDao;
+import tool.Action2;
 
-public class SubjectDeleteExecuteAction extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
+public class SubjectDeleteExecuteAction extends Action2 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/subjectmanagement/subject_list.jsp");
-    }
-
-    // POSTは削除処理
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
         String cd = request.getParameter("cd");
         boolean deleteResult = false;
@@ -34,19 +19,16 @@ public class SubjectDeleteExecuteAction extends HttpServlet {
             Subject subject = new Subject();
             subject.setCd(cd);
             deleteResult = dao.delete(subject);
-
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", "科目の削除中にエラーが発生しました。");
         }
 
         if (deleteResult) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/subjectmanagement/subject_delete_done.jsp");
-            dispatcher.forward(request, response);
+            return "/subjectmanagement/subject_delete_done.jsp";
         } else {
             request.setAttribute("errorMsg", "科目の削除に失敗しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/subjectmanagement/subject_list.jsp");
-            dispatcher.forward(request, response);
+            return "/subjectmanagement/subject_list.jsp";
         }
     }
 }

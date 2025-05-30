@@ -1,41 +1,31 @@
 package subject_management;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TestRegistExecuteAction extends HttpServlet {
+import tool.Action2;
 
+public class TestRegistExecuteAction extends Action2 {
     private static final String DB_URL = "jdbc:h2:~/exam";
     private static final String DB_USER = "sa";
     private static final String DB_PASS = "";
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        request.setAttribute("message", "このページはフォームからの登録時に利用してください。");
-        request.getRequestDispatcher("subject_management/test_regist.jsp").forward(request, response);
-    }
-
-    // POSTメソッド（フォーム送信時）
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setCharacterEncoding("UTF-8");
 
         String subjectId = request.getParameter("subjectId");
-        String examCount = request.getParameter("examCount"); // 必要なら利用
+        String examCount = request.getParameter("examCount"); // Cần thiết thì sử dụng
 
         boolean isSuccess = true;
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
-            conn.setAutoCommit(false);  // トランザクション開始
+            conn.setAutoCommit(false); // Bắt đầu transaction
 
             String sql = "INSERT INTO test_scores (student_id, subject_id, score) VALUES (?, ?, ?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -47,7 +37,7 @@ public class TestRegistExecuteAction extends HttpServlet {
                         try {
                             score = Integer.parseInt(scoreStr);
                         } catch (NumberFormatException e) {
-                            score = -1; // 無効値として扱う
+                            score = -1; // Xử lý giá trị không hợp lệ
                         }
                         if (score >= 0) {
                             ps.setString(1, studentId);
@@ -60,7 +50,6 @@ public class TestRegistExecuteAction extends HttpServlet {
                 ps.executeBatch();
             }
             conn.commit();
-
         } catch (SQLException e) {
             e.printStackTrace();
             isSuccess = false;
@@ -72,6 +61,7 @@ public class TestRegistExecuteAction extends HttpServlet {
             request.setAttribute("message", "登録に失敗しました");
         }
 
-        request.getRequestDispatcher("/subject_management/test_regist.jsp").forward(request, response);
+        // Trả về đường dẫn JSP để Action2 forward
+        return "/subject_management/test_regist.jsp";
     }
 }

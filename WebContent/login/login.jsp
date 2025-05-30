@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -34,7 +35,7 @@
 <body>
 <div class="login-form">
     <h2>ログイン</h2>
-    <form action="/TeamE/login/loginexe" method="post">
+    <form action="${pageContext.request.contextPath}/login/loginexe.action" method="post">
         <label for="id">教員ID:</label>
         <input type="text" name="id" id="id" required autofocus />
 

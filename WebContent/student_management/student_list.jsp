@@ -42,12 +42,12 @@
                 <td>${student.name}</td>
                 <td>${student.classNum}</td>
                 <td><c:choose><c:when test="${student.attend}">○</c:when><c:otherwise>×</c:otherwise></c:choose></td>
-                <td><a href="student_edit?no=${student.no}">変更</a></td>
+                <td><a href="${pageContext.request.contextPath}/studentmanagement/update.action?no=${student.no}">変更</a></td>
             </tr>
         </c:forEach>
     </table>
 </c:if>
 
-<a href="student/create">新規登録</a>
+<a href="${pageContext.request.contextPath}/studentmanagement/creat.action">新規登録</a>
 </body>
 </html>
