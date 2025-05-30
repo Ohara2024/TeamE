@@ -39,6 +39,6 @@ public class LoginAction extends Action2 {
         }
 
         // Giả định sau khi đăng nhập thành công, redirect về menu
-        return "redirect:/menu/menuaction";
+        return "redirect:/menu/menuaction.action";
     }
 }

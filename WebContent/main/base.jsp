@@ -130,11 +130,11 @@
 <body>
     <!-- Header -->
     <div class="header-container">
-        <a href="${pageContext.request.contextPath}/menu/menuaction">得点管理システム</a>
+        <a href="${pageContext.request.contextPath}/menu/menuaction.action">得点管理システム</a>
         <div class="header-user">
             <c:if test="${not empty user}">
                 ${user.name}様
-                <a href="/TeamE/logout/logoutaction">ログアウト</a>
+                <a href="${pageContext.request.contextPath}/logout/logout.action">ログアウト</a>
             </c:if>
         </div>
     </div>
@@ -151,7 +151,7 @@
                         <a href="#">成績管理</a>
                         <ul class="menu-sub">
                             <li><a href="#">成績登録</a></li>
-                            <li><a href="${pageContext.request.contextPath}/testmanagement/list">成績参照</a></li>
+                            <li><a href="${pageContext.request.contextPath}/testmanagement/list.action">成績参照</a></li>
                         </ul>
                     </li>
                     <li><a href="#">科目管理</a></li>

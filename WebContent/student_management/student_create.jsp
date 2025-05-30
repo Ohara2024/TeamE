@@ -4,7 +4,7 @@
 <head><title>学生情報登録</title></head>
 <body>
 <h2>学生情報登録</h2>
-<form action="${pageContext.request.contextPath}/studentmanagement/createxe.action" method="post">
+<form action="${pageContext.request.contextPath}/studentmanagement/createexe.action" method="post">
     学生番号: <input type="text" name="no" maxlength="10" required><br>
     氏名: <input type="text" name="name" maxlength="30" required><br>
 

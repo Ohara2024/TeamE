@@ -31,7 +31,7 @@ public class LoginExecuteAction extends Action2 {
             teacher.setAuthenticated(true);
             HttpSession session = request.getSession();
             session.setAttribute("user", teacher);
-            return "redirect:/menu/menuaction";
+            return "redirect:/menu/menuaction.action";
         }
     }
 }
